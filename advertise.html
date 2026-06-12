@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nesthere Advertise</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contents-utils.css">
+
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <div id="nav-layout"></div>
+
+    <div class="adv-wrap">
+      <div class="adv-hero">
+        <div class="adv-eyebrow">Overseas advertising</div>
+        <h1>Sell and advertise to UK buyers with NestHere Overseas</h1>
+        <p class="adv-sub">
+          NestHere is where UK buyers search for a place in the sun. Put your
+          international properties in front of a large, engaged audience of
+          home-hunters.
+        </p>
+        <div class="adv-stat-row">
+          <div class="adv-stat">
+            <div class="num">5m+</div>
+            <div class="lab">overseas searches a month</div>
+          </div>
+          <div class="adv-stat">
+            <div class="num">26m+</div>
+            <div class="lab">visits a year</div>
+          </div>
+          <div class="adv-stat">
+            <div class="num">0%</div>
+            <div class="lab">commission on a sale</div>
+          </div>
+        </div>
+        <div class="adv-btns">
+          <button
+            class="btn btn-copper btn-lg"
+            onclick="
+              document
+                .getElementById('oadv-contact')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Get in touch
+          </button>
+          <button
+            class="btn btn-outline btn-lg"
+            style="color: #fff; border-color: rgba(255, 255, 255, 0.5)"
+            onclick="openContent('Overseas')"
+          >
+            See the Overseas section
+          </button>
+        </div>
+        <p class="adv-foot-note">
+          Audience figures are illustrative for this prototype.
+        </p>
+      </div>
+      <div class="adv-intro">
+        <h2>What type of advertiser are you?</h2>
+        <p>
+          Whether you\u2019re an agent, developer, private seller or service
+          provider, there\u2019s a way to reach UK buyers searching abroad.
+        </p>
+      </div>
+      <div class="adv-seg-grid">${types}</div>
+      <div class="adv-intro">
+        <h2>Why advertise overseas with NestHere?</h2>
+      </div>
+      <div class="adv-benefits">${benefits}</div>
+      <div class="adv-data">
+        <div>
+          <h3>Know your market</h3>
+          <p>
+            See how UK buyers engage with property in Spain, France, Portugal
+            and beyond \u2014 then price and position accordingly.
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="openContent('Data Services')">
+          Explore Data Services
+        </button>
+      </div>
+      <div class="adv-contact" id="oadv-contact">
+        <h2>Get in touch</h2>
+        <p>
+          Tell us about the properties you advertise and we\u2019ll find the
+          right way to reach UK buyers for you.
+        </p>
+        <div class="adv-q">Which market are most of your properties in?</div>
+        <select class="adv-select" id="oadv-country">
+          ${countries}
+        </select>
+        <div>
+          <button class="btn btn-copper" onclick="oadvContinue()">
+            Continue
+          </button>
+        </div>
+      </div>
+      <div class="adv-intro" style="margin-bottom: 0">
+        <h2>Trusted by agents, developers & businesses</h2>
+        <p>
+          Respected names across Spain, France, Portugal and beyond use NestHere
+          Overseas to reach UK buyers. You can also
+          <a
+            onclick="openContent('Sell overseas property')"
+            style="
+              color: var(--forest);
+              font-weight: 600;
+              cursor: pointer;
+              text-decoration: underline;
+            "
+            >sell your own property abroad</a
+          >
+          or try the
+          <a
+            onclick="openContent('Currency converter')"
+            style="
+              color: var(--forest);
+              font-weight: 600;
+              cursor: pointer;
+              text-decoration: underline;
+            "
+            >currency converter</a
+          >.
+        </p>
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="adv-wrap">
+      <div class="adv-hero">
+        <div class="adv-eyebrow">Advertise on NestHere</div>
+        <h1>Get your properties and brand seen by a huge home-moving audience</h1>
+        <p class="adv-sub">From estate agents and developers to brands and schools, NestHere connects you with people actively searching for their next move.</p>
+        <div class="adv-stat-row">
+          <div class="adv-stat"><div class="num">8.4m</div><div class="lab">monthly visitors</div></div>
+          <div class="adv-stat"><div class="num">#1</div><div class="lab">for home-buyer reach</div></div>
+          <div class="adv-stat"><div class="num">500M+</div><div class="lab">data points behind our insight</div></div>
+        </div>
+        <div class="adv-btns">
+          <button class="btn btn-copper btn-lg" onclick="document.getElementById('adv-contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+          <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Business Hub')">Visit the Business Hub</button>
+        </div>
+        <p class="adv-foot-note">Audience figures are illustrative for this prototype.</p>
+      </div>
+
+      <div class="adv-intro">
+        <h2>Who we work with</h2>
+        <p>We offer dedicated memberships and specialist teams supporting property professionals across the residential and commercial markets, in the UK and overseas. Find the option that fits you below.</p>
+      </div>
+      <div class="adv-seg-grid">${segCards}</div>
+
+      <div class="adv-data">
+        <div><h3>Make decisions with NestHere data</h3><p>Whatever you advertise, our market data can underpin your acquisition, planning and pricing decisions.</p></div>
+        <button class="btn btn-primary" onclick="openContent('Data Services')">Explore Data Services</button>
+      </div>
+
+      <div class="adv-contact" id="adv-contact">
+        <h2>Get in touch</h2>
+        <p>Tell us a little about your business and your goals, and we\u2019ll arrange a call to talk through the best options for you.</p>
+        <div class="adv-q">Where will the majority of the properties you advertise be located?</div>
+        <div class="adv-loc-row">
+          <div class="adv-loc active" onclick="advSetLoc(this)">UK</div>
+          <div class="adv-loc" onclick="advSetLoc(this)">Overseas</div>
+        </div>
+        <button class="btn btn-copper" onclick="advContinue()">Continue</button>
+      </div>
+
+      <div class="adv-legal">
+        <h2>Legal documents</h2>
+        <p class="adv-legal-sf">The latest terms and guidelines for NestHere advertisers.</p>
+        <div class="adv-doc-grid">${docs}</div>
+      </div>
+    </div>
+
+    <div id="footer-layout"></div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="utilities.html">Utilities</a>
+    <a href="find-agent.html">Find agent</a>
+    <a href="guides.html">Guides</a>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesthere | User Dashboard</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/users.css">
+
+    <script src="/js/main.js" defer></script>
+    <script src="/js/users.js" defer></script>
+
+</head>
+<body>
+    <div id="nav-layout"></div>
+
+    <section class="main-section">
+        <section class="side-nav">
+            <div class="menu-icon">
+                <svg xmlns="http://w3.org" viewBox="0 0 24 24"  fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-menu-icon">
+                    <!--dots-->
+                    <circle cx="8" cy="12" r="1" fill="currentColor" />
+                    <circle cx="13" cy="12" r="1" fill="currentColor" />
+                    <circle cx="18" cy="12" r="1" fill="currentColor" />
+                </svg>
+            </div>
+
+            <div class="side-nav-wrapper hidden">
+                
+
+                
+
+                
+
+                
+
+                <button class="logout-btn">&leftarrow; Logout</button>
+            </div>
+
+            <div class="side-nav-wrapper-desktop">
+                <a href="#dashboard-page" class="nav-item" data-hint="View Metrics">
+                    <div class="side-wrapper">
+                        <!--dashboard-->
+                        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon dash">
+                        
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                        </svg>
+
+                        <span class="nav-text">Dashboard</span>
+                    </div>
+                </a>
+
+                <a href="#listings-page" class="nav-item" data-hint="Manage Listings">
+                    <div class="side-wrapper">
+                        <!--list item-->
+                        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon list">
+                            <!--bullet points-->
+                            <line x1="4" y1="6" x2="4" y2="6" />
+                            <line x1="4" y1="12" x2="4" y2="12" />
+                            <line x1="4" y1="18" x2="4" y2="18" />
+
+                            <!--text lines-->
+                            <line x1="9" y1="6" x2="20" y2="6" />
+                            <line x1="9" y1="12" x2="20" y2="12" />
+                            <line x1="9" y1="18" x2="20" y2="18" />
+                        </svg>
+
+                        <span class="nav-text">Listings</span>
+                    </div>
+                </a>
+
+                <a href="#messages-page"class="nav-item" data-hint="messages">
+                    <div class="side-wrapper">
+                        <!--chat bubbles item-->
+                        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon mess">
+                        
+                            <path d="M12 3a9 9 0 0 1 7.2 14.4L19 21l-3.6-.2A9 9 0 1 1 12 3z" />
+                            <!--dots-->
+                            <circle cx="8" cy="12" r="1" fill="currentColor" />
+                            <circle cx="12" cy="12" r="1" fill="currentColor" />
+                            <circle cx="16" cy="12" r="1" fill="currentColor" />
+                        </svg>
+
+                        <span class="nav-text">Messages</span>
+                    </div>
+                </a>
+
+                <a href="#profile-page" class="nav-item" data-hint="Your Profile">
+                    <div class="side-wrapper">
+                        <!--user item-->
+                        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon prof">
+                            <circle cx="12" cy="12" r="11" />
+                            <path d="M18 21a6 6 0 0 0-12 0" />
+                            <!--head-->
+                            <circle cx="12" cy="10" r="4" />
+                        </svg>
+
+                        <span class="nav-text">Profile</span>
+                    </div>
+                </a>
+
+                <button class="logout-btn">&leftarrow; Logout</button>
+            </div>
+        </section>
+
+        <section class="pages-section">
+            <section class="pages dashboard-page">
+                <div class="page-title-wrapper">
+                    <h4 class="welcome-text">Welcome Sarah</h4>
+                </div>
+                <div class="dash-grid">
+                    <div class="dash-card">
+                        <a href="#dashboard-page" class="nav-item" data-hint="View Metrics">
+                            <div class="side-wrapper">
+                                <!--dashboard-->
+                                <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon dash">
+                        
+                                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                                </svg>
+
+                                <span class="nav-text">Dashboard</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dash-card">
+                        <a href="#favourites-page" class="nav-item" data-hint="Manage Listings">
+                            <div class="side-wrapper">
+                                <!--list item-->
+                                <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon list">
+                                    <!--bullet points-->
+                                    <line x1="4" y1="6" x2="4" y2="6" />
+                                    <line x1="4" y1="12" x2="4" y2="12" />
+                                    <line x1="4" y1="18" x2="4" y2="18" />
+                                
+                                    <!--text lines-->
+                                    <line x1="9" y1="6" x2="20" y2="6" />
+                                    <line x1="9" y1="12" x2="20" y2="12" />
+                                    <line x1="9" y1="18" x2="20" y2="18" />
+                                </svg>
+                            
+                                <span class="nav-text">Listings</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dash-card">
+                        <a href="#enquiries-page"class="nav-item" data-hint="messages">
+                            <div class="side-wrapper">
+                                <!--chat bubbles item-->
+                                <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon mess">
+                                
+                                    <path d="M12 3a9 9 0 0 1 7.2 14.4L19 21l-3.6-.2A9 9 0 1 1 12 3z" />
+                                    <!--dots-->
+                                    <circle cx="8" cy="12" r="1" fill="currentColor" />
+                                    <circle cx="12" cy="12" r="1" fill="currentColor" />
+                                    <circle cx="16" cy="12" r="1" fill="currentColor" />
+                                </svg>
+                            
+                                <span class="nav-text">Messages</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dash-card">
+                        <a href="#profile-page" class="nav-item" data-hint="Your Profile">
+                            <div class="side-wrapper">
+                                <!--user item-->
+                                <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="side-nav-icon prof">
+                                    <circle cx="12" cy="12" r="11" />
+                                    <path d="M18 21a6 6 0 0 0-12 0" />
+                                    <!--head-->
+                                    <circle cx="12" cy="10" r="4" />
+                                </svg>
+                            
+                                <span class="nav-text">Profile</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dash-card"></div>
+
+                    <div class="dash-card"></div>
+                </div>
+            </section>
+
+            <section class="pages favourites-page"></section>
+
+            <section class="pages enquries-page"></section>
+
+            <section class="pages profile-page"></section>
+        </section>
+    </section>
+
+    <div id="footer-layout"></div>
+    <a href="/index.html">Home</a>
+    <a href="favourites.html">Favourites</a>
+    <a href="/search.html">Listings</a>
+</body>
+</html>

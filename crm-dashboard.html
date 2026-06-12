@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestHere Dashboard</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/crm-dashboard.css">
+    <link rel="stylesheet" href="css/add-listing.css">
+    <link rel="stylesheet" href="css/modal.css">
+    
+    <script src="js/main.js"></script>
+    <script src="js/uploader.js" defer></script>
+    <script src="js/crm.js" defer></script>
+</head>
+<body>
+    <div id="nav-layout"></div>
+
+    <!-- ══ PAGE: DASHBOARD ══ -->
+    <div id="page-dashboard" class="page">
+      <div class="dashboard-inner">
+        <div class="dashboard-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 class="section-title" style="margin-bottom:4px;">Welcome back, Sarah 👋</h2>
+            <p style="color:var(--grey-600);font-size:14px;">Manage your saved properties, alerts and searches.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddListing()">+ Add new property</button>
+        </div>
+        <div class="dashboard-tabs">
+          <button class="dash-tab active" onclick="setDashTab(this,'dash-favorites')">♡ My Favourites (3)</button>
+          <button class="dash-tab" onclick="setDashTab(this,'dash-alerts')">🔔 My Alerts (2)</button>
+          <button class="dash-tab" onclick="setDashTab(this,'dash-searches')">🔍 Saved Searches</button>
+          <button class="dash-tab" onclick="setDashTab(this,'dash-enquiries')">💬 Enquiries</button>
+        </div>
+        <div id="dash-favorites">
+          <div class="prop-grid" id="dash-prop-grid"></div>
+        </div>
+        <div id="dash-alerts" class="hidden">
+          <div class="alerts-list">
+            <div class="alert-card">
+              <div>🔔</div>
+              <div class="alert-info"><h4>3 Bed Houses in London</h4><p>London · Houses · £400k–£600k · 3+ Beds · Daily · Email</p></div>
+              <div class="alert-actions">
+                <button class="btn btn-outline">View matches</button>
+                <button class="btn btn-ghost">Edit</button>
+                <button class="btn btn-ghost">⏸</button>
+                <button class="btn btn-ghost" style="color:#dc3545;">🗑</button>
+              </div>
+            </div>
+            <div class="alert-card">
+              <div>🔔</div>
+              <div class="alert-info"><h4>2 Bed Flats in Bristol</h4><p>Bristol · Flats · Under £300k · 2+ Beds · Weekly · Email + Push</p></div>
+              <div class="alert-actions">
+                <button class="btn btn-outline">View matches</button>
+                <button class="btn btn-ghost">Edit</button>
+                <button class="btn btn-ghost">⏸</button>
+                <button class="btn btn-ghost" style="color:#dc3545;">🗑</button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:20px;"><button class="btn btn-primary" onclick="showModal('modal-alert')">+ Create New Alert</button></div>
+        </div>
+        <div id="dash-searches" class="hidden">
+          <div style="background:#fff;border-radius:var(--radius);padding:30px;text-align:center;border:1px solid var(--grey-200);">
+            <div style="font-size:40px;margin-bottom:12px;">🔍</div>
+            <h3 style="margin-bottom:8px;">No saved searches yet</h3>
+            <p style="color:var(--grey-600);font-size:14px;margin-bottom:16px;">Save your search criteria to quickly return to listings you care about.</p>
+            <button class="btn btn-primary" onclick="showCatalogue('buy')">Browse Properties</button>
+          </div>
+        </div>
+        <div id="dash-enquiries" class="hidden">
+          <div style="background:#fff;border-radius:var(--radius);padding:30px;text-align:center;border:1px solid var(--grey-200);">
+            <div style="font-size:40px;margin-bottom:12px;">💬</div>
+            <h3 style="margin-bottom:8px;">No enquiries yet</h3>
+            <p style="color:var(--grey-600);font-size:14px;">Your messages with agents will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: ADD LISTING WIZARD ══ -->
+    <div id="page-addlisting" class="page">
+      <div class="wizard-inner">
+        <div class="wizard-head">
+          <h2>Add a new property</h2>
+          <p id="wiz-stepcount">Step 1 of 6 — Basic information</p>
+        </div>
+        <div class="stepper" id="wiz-stepper">
+          <div class="step-node current" data-step="1"><div class="step-circle">1</div><div class="step-label">Basics</div></div>
+          <div class="step-node" data-step="2"><div class="step-circle">2</div><div class="step-label">Media</div></div>
+          <div class="step-node" data-step="3"><div class="step-circle">3</div><div class="step-label">Details</div></div>
+          <div class="step-node" data-step="4"><div class="step-circle">4</div><div class="step-label">Location</div></div>
+          <div class="step-node" data-step="5"><div class="step-circle">5</div><div class="step-label">Passport</div></div>
+          <div class="step-node" data-step="6"><div class="step-circle">6</div><div class="step-label">Review</div></div>
+        </div>
+
+        <div class="wiz-card">
+          <!-- STEP 1: BASIC INFORMATION -->
+          <div class="wiz-step active" data-step="1">
+            <h3>Basic information</h3>
+            <p class="step-sub">The essentials buyers search on first.</p>
+            <div class="wiz-grid">
+              <div class="wiz-field">
+                <label>Property type <span class="req">*</span></label>
+                <select id="nl-type"><option value="">Select type…</option><option>House</option><option>Flat</option><option>Bungalow</option><option>Land</option><option>Commercial</option></select>
+                <div class="field-error">Choose a property type.</div>
+              </div>
+              <div class="wiz-field">
+                <label>Listing type <span class="req">*</span></label>
+                <select id="nl-listing" onchange="syncPriceLabel()"><option value="">Select…</option><option>For Sale</option><option>To Rent</option></select>
+                <div class="field-error">Choose a listing type.</div>
+              </div>
+              <div class="wiz-field full">
+                <label>Street address <span class="req">*</span></label>
+                <input type="text" id="nl-street" placeholder="e.g. 12 Oakwood Drive">
+                <div class="field-error">Add the street address.</div>
+              </div>
+              <div class="wiz-field">
+                <label>City or town <span class="req">*</span></label>
+                <input type="text" id="nl-city" placeholder="e.g. London">
+                <div class="field-error">Add the city or town.</div>
+              </div>
+              <div class="wiz-field">
+                <label>Postcode <span class="req">*</span></label>
+                <input type="text" id="nl-postcode" placeholder="e.g. SW16 4XX">
+                <div class="field-error">Add the postcode.</div>
+              </div>
+              <div class="wiz-field">
+                <label id="nl-price-label">Price <span class="req">*</span></label>
+                <div class="input-prefix"><span>£</span><input type="number" id="nl-price" placeholder="0" min="0"></div>
+                <div class="field-error">Enter a price.</div>
+              </div>
+              <div class="wiz-field">
+                <label>Floor area <span class="opt">(sq ft, optional)</span></label>
+                <input type="number" id="nl-sqft" placeholder="e.g. 1200" min="0">
+              </div>
+              <div class="wiz-field">
+                <label>Bedrooms <span class="req">*</span></label>
+                <input type="number" id="nl-beds" placeholder="0" min="0">
+                <div class="field-error">Add the number of bedrooms.</div>
+              </div>
+              <div class="wiz-field">
+                <label>Bathrooms <span class="req">*</span></label>
+                <input type="number" id="nl-baths" placeholder="0" min="0">
+                <div class="field-error">Add the number of bathrooms.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: MEDIA -->
+          <div class="wiz-step" data-step="2">
+            <h3>Photos &amp; tours</h3>
+            <p class="step-sub">Listings with strong photos get more enquiries.</p>
+            <div class="dropzone" id="nl-dropzone" onclick="document.getElementById('nl-images').click()">
+              <div class="dz-icon">🖼️</div>
+              <p>Drag photos here, or click to browse</p>
+              <span>JPG or PNG · add as many as you like</span>
+            </div>
+            <input type="file" id="nl-images" accept="image/*" multiple class="hidden" onchange="handleImageFiles(this.files)">
+            <div class="thumb-grid" id="nl-thumbs"></div>
+            <div class="wiz-grid" style="margin-top:20px;">
+              <div class="wiz-field">
+                <label>Video tour link <span class="opt">(optional)</span></label>
+                <input type="url" id="nl-video" placeholder="YouTube or Vimeo URL">
+              </div>
+              <div class="wiz-field">
+                <label>Virtual / 3D tour link <span class="opt">(optional)</span></label>
+                <input type="url" id="nl-virtual" placeholder="Matterport or VR tour URL">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: DESCRIPTION & FEATURES -->
+          <div class="wiz-step" data-step="3">
+            <h3>Description &amp; features</h3>
+            <p class="step-sub">Describe the home and highlight what stands out.</p>
+            <div class="wiz-field full">
+              <label>Property description</label>
+              <textarea id="nl-desc" placeholder="A bright, well-presented family home with…"></textarea>
+            </div>
+            <div class="wiz-field full">
+              <label>Key features</label>
+              <div class="feature-grid">
+                <label><input type="checkbox" class="nl-feature" value="Garden"> Garden</label>
+                <label><input type="checkbox" class="nl-feature" value="Parking"> Parking</label>
+                <label><input type="checkbox" class="nl-feature" value="Balcony"> Balcony</label>
+                <label><input type="checkbox" class="nl-feature" value="New Build"> New Build</label>
+                <label><input type="checkbox" class="nl-feature" value="Shared Ownership"> Shared Ownership</label>
+              </div>
+            </div>
+            <div class="wiz-grid" style="margin-top:16px;">
+              <div class="wiz-field">
+                <label>EPC rating</label>
+                <select id="nl-epc"><option value="">Select…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+              </div>
+              <div class="wiz-field">
+                <label>Tenure</label>
+                <select id="nl-tenure"><option value="">Select…</option><option>Freehold</option><option>Leasehold</option></select>
+              </div>
+              <div class="wiz-field">
+                <label>Council tax band</label>
+                <select id="nl-tax"><option value="">Select…</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: LOCATION -->
+          <div class="wiz-step" data-step="4">
+            <h3>Location &amp; map</h3>
+            <p class="step-sub">Confirm the position and point out what's nearby.</p>
+            <div class="wiz-map">
+              <div class="map-loc" id="nl-map-loc">📍 Location</div>
+              <div class="pin">📍</div>
+            </div>
+            <p style="font-size:13px;color:var(--grey-600);margin-top:10px;">Pin placed from the address you entered. You can fine-tune it in the full map editor.</p>
+            <div class="wiz-field full" style="margin-top:16px;">
+              <label>Nearby amenities <span class="opt">(optional)</span></label>
+              <div class="add-inline">
+                <input type="text" id="nl-amenity-input" placeholder="e.g. Streatham Station — 0.4 mi" onkeydown="if(event.key==='Enter'){event.preventDefault();addAmenity();}">
+                <button class="btn btn-outline" type="button" onclick="addAmenity()">Add</button>
+              </div>
+              <div class="chip-row" id="nl-amenities"></div>
+            </div>
+          </div>
+
+          <!-- STEP 5: PROPERTY PASSPORT -->
+          <div class="wiz-step" data-step="5">
+            <h3>🛂 Property Passport — initial entry</h3>
+            <p class="step-sub">Log maintenance and improvements to build buyer confidence. Add one now or come back later.</p>
+            <div class="entry-list" id="nl-entry-list"></div>
+            <div class="entry-form">
+              <div class="wiz-grid">
+                <div class="wiz-field">
+                  <label>Date</label>
+                  <input type="date" id="pe-date">
+                </div>
+                <div class="wiz-field">
+                  <label>Type of work or event</label>
+                  <select id="pe-type"><option>Initial Condition Assessment</option><option>Kitchen Refurbishment</option><option>Bathroom Refurbishment</option><option>Boiler Replacement</option><option>Roof Repair</option><option>Electrical Upgrade</option><option>Exterior Painting</option><option>Garden Landscaping</option><option>Other</option></select>
+                </div>
+                <div class="wiz-field full">
+                  <label>Description</label>
+                  <textarea id="pe-desc" style="min-height:70px;" placeholder="What was done, and by whom…"></textarea>
+                </div>
+                <div class="wiz-field">
+                  <label>Cost <span class="opt">(optional)</span></label>
+                  <div class="input-prefix"><span>£</span><input type="number" id="pe-cost" placeholder="0" min="0"></div>
+                </div>
+                <div class="wiz-field">
+                  <label>Contractor <span class="opt">(optional)</span></label>
+                  <input type="text" id="pe-contractor" placeholder="Company or individual">
+                </div>
+              </div>
+              <button class="btn btn-outline" type="button" onclick="addPassportEntry()">+ Add passport entry</button>
+            </div>
+          </div>
+
+          <!-- STEP 6: REVIEW -->
+          <div class="wiz-step" data-step="6">
+            <h3>Review &amp; publish</h3>
+            <p class="step-sub">Check everything reads right before it goes live.</p>
+            <div id="nl-review"></div>
+          </div>
+
+          <!-- STEP 7: CONFIRMATION -->
+          <div class="wiz-step" data-step="7">
+            <div class="wiz-confirm">
+              <div class="check">✓</div>
+              <h3 id="wiz-confirm-title">Your property is live!</h3>
+              <p id="wiz-confirm-sub">It's published on NestHere and visible to buyers now.</p>
+              <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                <button class="btn btn-primary" id="wiz-view-btn" onclick="viewProperty(lastListedId)">View listing</button>
+                <button class="btn btn-outline" onclick="openAddListing()">Add another property</button>
+                <button class="btn btn-ghost" onclick="showPage('dashboard')">Go to dashboard</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FOOTER NAV -->
+          <div class="wiz-footer" id="wiz-footer">
+            <button class="btn btn-ghost" id="wiz-back" onclick="wizBack()">← Back</button>
+            <div class="right">
+              <button class="btn btn-ghost hidden" id="wiz-preview" onclick="previewListing()">👁 Preview</button>
+              <button class="btn btn-outline" id="wiz-draft" onclick="saveDraft()">Save as draft</button>
+              <button class="btn btn-primary" id="wiz-next" onclick="wizNext()">Next →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ══ PAGE: ADMIN ══ -->
+    <div id="page-admin" class="page">
+      <div class="admin-inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+          <div><h2 class="section-title">Admin Dashboard</h2><p style="color:var(--grey-600);font-size:14px;">Overseeing Properties, Users & System Operations</p></div>
+          <div style="display:flex;gap:10px;"><button class="btn btn-ghost" onclick="showPage('home')">← Back to Site</button><button class="btn btn-primary" onclick="openAddListing()">+ Add Listing</button></div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat-card"><div class="num">532</div><div class="lbl">Total Listings</div></div>
+          <div class="admin-stat-card"><div class="num" style="color:#C2793F;">2,841</div><div class="lbl">Registered Users</div></div>
+          <div class="admin-stat-card"><div class="num" style="color:#f57c00;">18</div><div class="lbl">Pending Approvals</div></div>
+          <div class="admin-stat-card"><div class="num" style="color:#c62828;">3</div><div class="lbl">Flagged Records</div></div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);border:1px solid var(--grey-200);overflow:hidden;margin-bottom:24px;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--grey-200);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <h3 style="font-size:16px;font-weight:700;">Property Listings</h3>
+            <div style="display:flex;gap:8px;"><input type="text" placeholder="Search listings..." style="padding:8px 12px;border:1px solid var(--grey-200);border-radius:8px;font-size:13px;outline:none;"><button class="btn btn-ghost" style="font-size:13px;">Filter</button></div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead><tr><th>Property</th><th>Price</th><th>Type</th><th>Status</th><th>Agent</th><th>Actions</th></tr></thead>
+              <tbody id="admin-table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);border:1px solid var(--grey-200);overflow:hidden;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--grey-200);"><h3 style="font-size:16px;font-weight:700;">User Accounts</h3></div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Sarah Johnson</strong></td><td>sarah@email.com</td><td>Buyer</td><td><span class="status-pill status-active">Active</span></td><td>Jan 2024</td><td class="table-actions"><button class="btn btn-ghost">View</button><button class="btn btn-ghost" style="color:#dc3545;">Suspend</button></td></tr>
+                <tr><td><strong>Mark Thompson</strong></td><td>mark@estate.co.uk</td><td>Agent</td><td><span class="status-pill status-active">Active</span></td><td>Mar 2023</td><td class="table-actions"><button class="btn btn-ghost">View</button><button class="btn btn-ghost" style="color:#dc3545;">Suspend</button></td></tr>
+                <tr><td><strong>Emma Williams</strong></td><td>emma@email.com</td><td>Seller</td><td><span class="status-pill status-pending">Pending</span></td><td>Jun 2024</td><td class="table-actions"><button class="btn btn-ghost">View</button><button class="btn btn-outline">Approve</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div id="footer-layout"></div>
+    <a href="index.html">home</a>
+    <a href="auth.html">Login</a>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About NestHere</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contents-utils.css">
+    <link rel="stylesheet" href="css/about.css">
+
+    <script src="js/main.js"></script>
+    <script src="js/about.js" defer></script>
+</head>
+<body>
+    <div id="nav-layout"></div>
+    
+
+    <div class="ds-wrap">
+      <div class="ds-hero">
+        <div class="ds-eyebrow">Data Services</div>
+        <h1>Large-scale property data to power your decisions</h1>
+        <p>Access sales and rental data sourced directly from one of the UK\u2019s busiest property platforms, to support your property, lending and investment decisions.</p>
+        <div class="ds-btns">
+          <button class="btn btn-copper btn-lg" onclick="openContent('Contact us')">Get in touch</button>
+          <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="document.getElementById('ds-solutions').scrollIntoView({behavior:'smooth'})">Explore solutions</button>
+        </div>
+      </div>
+
+      <div class="ds-intro">
+        <div>
+          <h2>Data direct from a leading UK property platform</h2>
+          <p>NestHere collects price, supply and demand signals from across its listings and combines them with trusted third-party data to give a 360-degree view of the market and of each property.</p>
+          <p>Because we\u2019ve gathered these signals since launch, we can show historical context, current trends and early indicators of where the market is heading.</p>
+        </div>
+        <div class="ds-bigstat"><div class="num">500M+</div><div class="lab">transactional data points, and counting</div></div>
+      </div>
+
+      <div id="ds-solutions">
+        <h2 class="ds-h2">A range of data solutions for any need</h2>
+        <p class="ds-lead">Whether you\u2019re an investor or consultant, a local authority or housing association, a surveyor or lender, an estate agent or developer, there\u2019s a NestHere data solution to help.</p>
+        <div class="ds-sol-grid">${solCards}</div>
+      </div>
+
+      <h2 class="ds-h2">Trusted at scale</h2>
+      <p class="ds-lead">NestHere data supports thousands of property decisions every month.</p>
+      <div class="ds-usage">${usage}</div>
+
+      <h2 class="ds-h2">What our customers say</h2>
+      <div class="ds-quotes">${quotes}</div>
+
+      <div class="ds-actions">
+        <h3>Housing market data in action</h3>
+        <div class="ds-actions-grid">${actions}</div>
+      </div>
+
+      <div class="c-cta" style="margin-top:28px;">
+        <h3>Not sure which solution is right for you?</h3>
+        <p>Our specialist team will take time to understand what you need the data to support, then help you choose.</p>
+        <div class="c-cta-btns">
+          <button class="btn btn-primary" onclick="openContent('Contact us')">Contact the data team</button>
+          <button class="btn btn-outline" onclick="openContent('Business Hub')">Visit the Business Hub</button>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="press-wrap">
+      <div class="press-head">
+        <h1>Press releases</h1>
+        <div class="press-search">
+          <input id="press-q" type="text" placeholder="Search press releases\u2026" oninput="filterPress(this.value)">
+          <button class="btn btn-primary" onclick="filterPress(document.getElementById('press-q').value)">Search</button>
+        </div>
+      </div>
+      <div class="press-grid" id="press-grid">${PRESS_RELEASES.map(pressCard).join("")}</div>
+      <p class="press-empty hidden" id="press-empty">No press releases match your search.</p>
+    </div>
+
+
+    <div id="footer-layout"></div>
+    <a href="index.html">home</a>
+    <a href="utilities.html">Utilities</a>
+    <a href="advertise.html">Advertise</a>
+    <a href="find-agent.html">Find Agent</a>
+    <a href="guides.html">Guides</a>
+</body>
+</html>

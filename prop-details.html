@@ -1,0 +1,382 @@
+<!DOCTYPE = html>
+<html lang="en-uk">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Nesthere Property detail page</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/p-details.css" />
+
+        <script src="js/main.js" defer></script>
+        <script src="js/p-details.js" defer></script>
+    </head>
+    <body>
+        <div id="nav-layout"></div>
+
+        <section class="main-section">
+            <section class="image-card">
+                <div class="gallery">
+                    <div class="slide">
+                        <img src="images/abstract-colour-splash.jpg" />
+                    </div>
+                </div>
+                <div class="btn-wrapper">
+                    <button class="prev">Prev...</button>
+                    <button class="next">Next...</button>
+                </div>
+                <div class="thumbnail-wrapper">
+                    <div class="nail"><img src="images/abstract-colour-splash.jpg" alt=""></div>
+                    <div class="nail"><img src="images/black.jpg" alt=""></div>
+                    <div class="nail"><img src="images/graph.jpg" alt=""></div>
+                </div>
+            </section>
+            
+            <div class="action-buttons-wrapper">
+                <button class="share-btn">Share ↗</button>
+                <button class="save-btn">♡ Save</button>
+            </div>
+            
+            <div class="quick-stat-container">
+                <div class="left-wrapper">
+                    <h3 class="address">19 Broadway, off the 18th square</h3>
+                    <div class="price-wrapper">
+                        <p class="price-text">Guide Price</p>
+                        <span><h3 class="price">£585,000</h3> <p class="info-icon">&icirc;</p></span>
+                    </div>
+                    
+                    <div class="affordability-wrapper">
+                        <p class="afford-text">&circeq; 
+                            <a href="#">Can you afford it?</a>
+                        </p>
+                        <p class="price-change-text">Price reduced at: N/A</p>
+                    </div>
+                </div>
+
+                <div class="right-wrapper">
+                    <!--Agent logo is displayed here-->
+                    <img src="images/abstract-colour-splash.jpg" alt="agent logo" class="agent-logo">
+                </div>
+            </div>
+
+            <section class="details-section">
+                <div class="details-tabs">
+                    <div class="tab overview active-tab" onclick="changeDetail('overview', 'page-1')">Overview</div>
+                    <div class="tab details" onclick="changeDetail('details', 'page-2')">Details</div>
+                    <div class="tab features" onclick="changeDetail('features', 'page-3')">Features</div>
+                    <div class="tab location" onclick="changeDetail('location', 'page-4')">Location</div>
+                    <div class="tab tour" onclick="changeDetail('tour', 'page-5')">Tour</div>
+                </div>
+
+                <div class="details-wrapper page-1 active-detail">
+                    <div class="overview-stat-wrapper">
+                        <div class="overview-stat">
+                            <h3 class="overview-stat-title">Bedrooms</h3>
+                            <p class="bed-count">N/A</p>
+                        </div>
+
+                        <div class="overview-stat">
+                            <h3 class="overview-stat-title">Bathrooms</h3>
+                            <p class="bath-count">N/A</p>
+                        </div>
+
+                        <div class="overview-stat">
+                            <h3 class="overview-stat-title">Size</h3>
+                            <p class="size">N/A</p>
+                        </div>
+
+                        <div class="overview-stat">
+                            <h3 class="overview-stat-title">EPC Rating</h3>
+                            <p class="epc-rate">N/A</p>
+                        </div>
+                    </div>
+
+                    <div class="about-prop-wrapper">
+                        <h3 class="about-title">About This Property</h3>
+                        <div class="about-wrapper">
+                            <p class="about-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, adipisci.
+                            </p>
+                        </div>
+                        <button class="see-more-btn">See more</button>
+                    </div>
+
+                    <div class="key-features-container">
+                        <h3 class="key-features-title">Key Features</h3>
+
+                        <div class="key-features-wrapper">
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+
+                            <p class="feature"><span>&checkmark;</span> Lorem ipsum dolor sit.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="details-wrapper page-2">
+                    <h3 class="detail-section-header">Property Details</h3>
+
+                    <div class="detail-section-wrapper">
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Property Type</h3>
+                            <p class="detail-text prop-type-value">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Tenure</h3>
+                            <p class="detail-text tenure-value">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Council Tax Band</h3>
+                            <p class="detail-text council-tax-band">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">EPC Rating</h3>
+                            <p class="detail-text epc-value">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Parking</h3>
+                            <p class="detail-text parking-value">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Garden</h3>
+                            <p class="detail-text garden-value">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Accessibility</h3>
+                            <p class="detail-text accessibility-value">N/A</p>
+                        </div>
+                        <div class="detail-wrapper">
+                            <h3 class="detail-title">Listed</h3>
+                            <p class="detail-text listing-date">N/A</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-wrapper page-3">
+                    <h3 class="features-section-header">Features & Amenities</h3>
+                    <div class="features-section-wrapper">
+                        <p class="features-value">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi veniam quaerat, vitae eos magni unde id laboriosam illo totam nostrum dicta omnis ab aspernatur modi quam excepturi iste, neque molestiae!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="details-wrapper page-4">
+                    <h3 class="location-section-header">Location</h3>
+                    <div class="map-wrapper"></div>
+
+                    <div class="prop-amenities-proximity">
+                        <div class="proximity-wrapper">
+                            <div class="prox-icon">🚉</div>
+                            <p class="prox-text closest-train">N/A</p>
+                        </div>
+                        <div class="proximity-wrapper">
+                            <div class="prox-icon">🏫</div>
+                            <p class="prox-text closest-school">N/A</p>
+                        </div>
+                        <div class="proximity-wrapper">
+                            <div class="prox-icon">🛒</div>
+                            <p class="prox-text closest-mall">N/A</p>
+                        </div>
+                        <div class="proximity-wrapper">
+                            <div class="prox-icon">🌳</div>
+                            <p class="prox-text closest-park">N/A</p>
+                        </div>
+                    </div>
+
+                    <div class="check-proximity-wrapper">
+                        <p class="prox-search-text">Enter a location to get the distance from this property</p>
+                        <div class="prox-search-wrapper">
+                            <input type="search" name="prox-location" id="" class="prox-search-input">  <button class="prox-submit-btn">Search</button>
+                        </div>
+                        <p class="prox-result-text"></p>
+                    </div>
+                </div>
+
+                <div class="details-wrapper page-5">
+                    <h3 class="virtual-tour-header">Virtual Tour</h3>
+                    <iframe src="" frameborder="0" class="virtual-tour-display"></iframe>
+                </div>
+            </section>
+
+            <section class="extra-info-section">
+                <div class="neighbourhood-trigger-wrapper">
+                    <div class="icon-wrapper">🕐</div>
+                    <div class="text-wrapper">
+                        <h3 class="neighbourhood-trigger-header">Neighbourhood Time Machine</h3>
+                        <p class="neighbourhood-trigger-text">See how much this area has changed over time</p>
+                    </div>
+                </div>
+
+                <section class="neighbourhood-time-section">
+                    <h3 class="neighbourhood-time-header">Key Changes Over Time</h3>
+                    <p class="time-machine-desc">Major milestones in xxxx</p>
+                    <div class="neighbourhood-time-container">
+                        <div class="time-filter-wrapper">
+                            <p class="year">0</p>
+                            <br>
+                            <input type="range" name="neighbourhood-time-range" id="" class="neighbourhood-time-range">
+                        </div>
+                        <div class="time-wrapper">
+                            
+                        </div>
+                    </div>
+                </section>
+
+
+                <div class="prop-passport-trigger-wrapper">
+                    <div class="icon-wrapper">🛂</div>
+                    <div class="text-wrapper">
+                        <h3 class="prop-passport-trigger-header">Property Passport</h3>
+                        <p class="prop-passport-trigger-text">Full history of maintenance and renovations</p>
+                    </div>
+                </div>
+                    
+                
+                <section class="house-passport-section">
+                    <div class="prop-passport-header-wrapper">
+                        <div class="icon">🛂</div>
+                        <div class="pass-header-box">
+                            <h3 class="pass-header">Property Passport</h3>
+                        </div>
+                    </div>
+                    <p class="pass-sec-desc">A detailed history of maintenance and improvements to help you buy with confidence.</p>
+                    <div class="pass-container">
+                        <div class="pass-filter-wrapper">
+                            <select name="" id="">
+                                <option value="1">All</option>
+                                <option value="2">Renovations</option>
+                                <option value="3">Repairs</option>
+                            </select>
+                        </div>
+                        <div class="pass-wrapper">
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section class="about-agent-section">
+                <div class="agent-card-wrapper">
+                    <div class="agent-name-wrapper">
+                        <p class="agent-name">Lorem, ipsum dolor.</p>
+                    </div>
+                    <div class="agent-image-wrapper">
+                        <img src="images/abstract-colour-splash.jpg" alt="Logo" class="agent-logo">
+                    </div>
+                </div>
+                <div class="agent-desc-container">
+                    <div class="agent-desc-wrapper">
+                        <p class="agent-desc-text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, perspiciatis?
+                        </p>
+                    </div>
+                    <button class="read-more-btn">Read more...</button>
+                </div>
+                <div class="more-prop-wrapper">
+                    <!--Dynamically rendered property cards from agent-->
+                </div>
+                <div class="learn-more-wrapper">
+                    <a href="#">Find out more about us</a>
+                </div>
+                
+            </section>
+
+            <section class="stamp-duty-wrapper">
+                <h3 class="stamp-header">Stamp Duty Calculator</h3>
+                <form action="" method="get" class="stamp-form">
+                    <div class="stamp-form-wrapper">
+                        <label for="purchase-reason">I am...
+                            <br>
+                            <select name="reason" id="purchase-reason">
+                                <option value="0">
+                                    Select
+                                </option>
+                                <option value="1">
+                                    Buying my first house
+                                </option>
+
+                                <option value="2">
+                                    Buying my next house
+                                </option>
+
+                                <option value="3">
+                                    Buying an additional  property
+                                </option>
+                            </select>
+                        </label>
+                        <br>
+                        <label for="prop-price">Property Price
+                        </label>
+                        <div class="prop-price-wrapper">
+                            <p class="currency-sign">£</p>
+                             <input type="number" name="price" id="prop-price" min="0">
+                        </div>
+
+                        <button class="stamp-calc-btn">
+                            Calculate
+                        </button>
+                    </div>
+                </form>
+                <div class="result-wrapper">
+                    <p class="stamp-result"></p>
+                </div>
+            </section>
+
+            <section class="contact-form-section">
+                <h3 class="contact-title">Contact The Agent</h3>
+
+                <form action="post" class="contact-form">
+                    <div class="contact-wrapper">
+                        <label for="mail">Email:
+                            <br>
+                            <input type="email" name="mail" id="mail">
+                        </label>
+                        <br>
+
+                        <label for="phone">Phone Number:
+                            <br>
+                            <input type="tel" name="phone" id="phone">
+                        </label>
+                        <br>
+
+                        <label for="remark">Remark:
+                            <br>
+                            <input type="textarea" name="remark" id="remark">
+                        </label>
+                        <br>
+
+                        <button class="contact-submit-btn">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="related-prop-section">
+                <div class="similar-prop-wrapper">
+                    <!--Dynamically rendered properties related to the viewed property-->
+                </div>
+            </section>
+
+            <div class="disclaimer-wrapper">
+                <p class="disclaimer-text">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia ea quod officiis, nam et fuga dicta accusantium asperiores illo! Commodi.
+                </p>
+            </div>
+        </section>
+
+
+        <div id="footer-layout"></div>
+    </body>
+</html>

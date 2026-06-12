@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/listing.css">
+
+    <script src="js/data.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/render-listings.js" defer></script>
+    <title>Nesthere Listings</title>
+</head>
+<body>
+    <div id="nav-layout"></div>
+
+    <section class="main-section">
+        <section class="filters-section">
+            <form action="" id="listing-page-form">
+                <div class="condition-wrapper">
+                    <div class="condition-box buy-box active-condition">
+                        Buy
+                    </div>
+                    <div class="condition-box rent-box">
+                        Rent
+                    </div>
+                    <div class="condition-box sold-box">
+                        Sold
+                    </div>
+                </div>
+
+                <div class="search-wrapper">
+                    <input type="search" name="p_location" id="" class="p-location-input" placeholder="Enter State, Area or Zip..." autocomplete="off" />
+                    <div class="autocomplete-results"></div>
+
+                    <button type="submit" class="p-search-btn">Search</button>
+                </div>
+
+                <div class="filters-wrapper">
+                    <select name="category" id="" class="p-category">
+                        <option value="residential">
+                            Residential
+                        </option>
+                        <option value="commercial">
+                            Commercial
+                        </option>
+                    </select>
+
+                    <label for="rm-count">Number of rooms
+                        <input type="number" name="rooms" id="rm-count" placeholder="Rooms">
+                    </label>
+                    
+
+                    <div class="price-container">
+                        <input type="range" name="min-price" id="" class="min-price price-slider">
+                        
+                        <input type="range" name="max-price" id="" class="max-price price-slider">
+                    </div>
+
+                    <div class="price-display-wrapper">
+                        <h3 class="price-input-title">Price range</h3>
+                        <div class="p-price-wrapper">
+                            <input type="number" name="minP" id="minP" class="p-input" placeholder="Min">
+                        -
+                            <input type="number" name="maxP" id="maxP" class="p-input" placeholder="Max">
+                        </div>
+                    </div>
+
+                    <div class="progress"></div>
+                </div>
+
+            </form>
+        </section>
+        
+        <section class="listings-section">
+            <div class="active-filters-tab">
+                <div class="display-filter-wrapper">
+                    <div class="p-order-wrapper">
+                        
+                        <select name="display-order" class="p-order-input" id="">
+                            <option value="popularity">Popularity</option>
+                            <option value="asc-cost">Ascending Cost</option>
+                            <option value="desc-cost">Descending Cost</option>
+                        </select>
+                    </div>
+
+                    <div class="view-switch-wrapper">
+                        <button class="grid-btn">
+                            Grid
+                        </button>
+                        <button class="list-btn">
+                            List
+                        </button>
+                    </div>
+                </div>
+
+                <div class="active-filters-wrapper">
+                    Lorem ipsum dolor sit amet.
+                </div>
+                <div class="prop-counter-wrapper">
+                    <p class="counter-label">
+                        Showing 0 of 0 properties
+                    </p>
+                </div>
+            </div>
+            <div class="prop-grid">
+            </div>
+            <div class="load-btn-wrapper">
+                <button class="load-more-btn">Load More</button>
+            </div>
+        </section>
+    </section>
+
+
+    <div id="footer-layout"></div>
+    <a href="index.html">home</a>
+    <a href="property.html">details</a>
+    <a href="search.html">listings page 1</a>
+</body>
+</html>

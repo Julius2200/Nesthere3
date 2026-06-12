@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesthere Find Agent</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contents-utils.css">
+
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <div id="nav-layout"></div>
+
+    <div class="fa-wrap">
+    <div class="fa-search">
+      <h1><span class="accent">Search</span> for estate and letting agents on NestHere</h1>
+      <div class="fa-form">
+        <div class="fa-frow">
+          <div class="fa-field"><label>Location</label><input id="fa-loc" type="text" placeholder="Area, postcode or station" onkeydown="if(event.key==='Enter')findAgentSearch()"></div>
+          <div class="fa-field"><label>Agent name (optional)</label><input id="fa-name" type="text" placeholder="e.g. Oakfield"></div>
+        </div>
+        <div class="fa-types">
+          <span style="opacity:.85;">Agent type:</span>
+          <label><input type="radio" name="fa-type" value="both" checked> Sales &amp; lettings</label>
+          <label><input type="radio" name="fa-type" value="sales"> Sales</label>
+          <label><input type="radio" name="fa-type" value="lettings"> Lettings</label>
+        </div>
+        <button class="btn btn-copper btn-lg" onclick="findAgentSearch()">Search agents</button>
+      </div>
+    </div>
+
+    <div class="fa-results" id="fa-results"></div>
+
+    <div class="fa-layout">
+      <div class="fa-main">
+        <p>Thinking of selling or letting? Choosing the right agent makes all the difference. Search local estate and letting agents on NestHere, compare their track record, and instruct with confidence.</p>
+
+        <h2>Why advertise with a NestHere agent</h2>
+        <h3>Reach the UK\u2019s home-movers</h3>
+        <p>Agents who advertise with NestHere put your property in front of one of the country\u2019s largest audiences of buyers and renters \u2014 the people most likely to make your sale or let happen.</p>
+        <h3>Serious buyers and renters</h3>
+        <p>NestHere attracts motivated home-hunters who save searches, set up alerts and enquire quickly, so your property reaches people who are ready to move.</p>
+        <h3>Most renters start their search online</h3>
+        <p>The vast majority of renters begin their search on a portal. A NestHere agent makes sure your rental is seen by them from day one.</p>
+        <h3>Your property live in minutes</h3>
+        <p>Once you instruct an agent, your listing can be prepared and published quickly, with photos, a floor plan and a verified Property Passport.</p>
+
+        <h2>Why instruct an agent to sell your property?</h2>
+        <p>A good agent earns their fee. Alongside marketing your home to the right buyers, an experienced local agent will:</p>
+        <ul>
+          <li>Recommend an asking price based on real, up-to-date local knowledge.</li>
+          <li>Use their understanding of the local market to reach the right buyers.</li>
+          <li>Present your home at its best to get genuine interest and viewings.</li>
+          <li>Give you honest feedback and reporting on how your listing is performing.</li>
+          <li>Handle negotiations and the often tricky route to completion on your behalf.</li>
+        </ul>
+
+        <h2>Benefits of using a letting agent</h2>
+        <p>If you\u2019re letting a property, a good agent can take a lot off your plate:</p>
+        <ul>
+          <li>Reduce the stress and admin of finding and referencing tenants.</li>
+          <li>Offer guidance on compliance, safety certificates and your responsibilities.</li>
+          <li>Manage the property day to day \u2014 especially helpful if you live far away.</li>
+          <li>Market your rental correctly so the right tenants apply quickly.</li>
+        </ul>
+
+        <h2>How to choose an estate agent</h2>
+        <p>Once you\u2019ve decided to sell or let, compare a shortlist before you instruct. It helps to look at recent sales or lets in your area, the fees and contract terms, and how each agent plans to market your property.</p>
+        <p>Ask for examples of similar homes they\u2019ve handled, how they\u2019ll price yours, and how they communicate. The cheapest fee isn\u2019t always the best value \u2014 a great agent can more than pay for themselves.</p>
+
+        <h2>Talk to your agent about standing out</h2>
+        <p>Small touches help your property stand out from others on the market. Ask your agent about a Premium or Featured listing, a Property Passport and great photography to make a strong first impression.</p>
+
+        <h2>Tools to help you prepare</h2>
+        <div class="fa-tools">${tools}</div>
+      </div>
+
+      <aside class="fa-side">
+        <div class="fa-promo">
+          <h3>Request an agent valuation for your home</h3>
+          <button class="btn btn-copper" onclick="openContent('Property valuation')">Book a valuation</button>
+        </div>
+        <div class="fa-box">
+          <h4>What\u2019s your property worth?</h4>
+          <a class="fa-first" onclick="openContent('Property valuation')">Agent valuation</a>
+          <a onclick="openContent('Housing trends')">Market trends</a>
+          <a onclick="openContent('Property valuation')">Instant online valuation</a>
+          <a onclick="openContent('Sold house prices')">Sold house prices</a>
+          <a onclick="openContent('Seller guides')">Selling guide</a>
+          <a onclick="openContent('Buyer guides')">Buying guide</a>
+          <a onclick="openContent('House Price Index')">House Price Index</a>
+        </div>
+        <div class="fa-box">
+          <h4>Overseas property</h4>
+          <p>Dreaming of a place in the sun? Start your overseas search with NestHere and see what your budget is worth abroad.</p>
+          <a class="fa-first" onclick="openContent('Overseas')">View overseas \u2192</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+    <div id="footer-layout"></div>
+    <a href="about.html">About</a>
+    <a href="utilities.html">Utilities</a>
+    <a href="advertise.html">Advertise</a>
+    <a href="index.html">Home</a>
+    <a href="guides.html">Guides</a>
+    
+</body>
+</html>

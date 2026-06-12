@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestHere AccountLogin</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+    <script src="js/main.js"></script>
+    <script src="js/auth-data.js" defer></script>
+</head>
+<body>
+
+    <!-- ══ PAGE: AUTH ══ -->
+    <div id="page-auth" class="page">
+      <div class="auth-card" style="margin:40px auto;">
+        <div class="auth-logo">
+          <svg viewBox="0 0 32 32" fill="none" width="32" height="32"><path d="M4 16L16 5l12 11v12H20v-7h-8v7H4V16z" fill="#1B3A2D"/></svg>
+          NestHere
+        </div>
+        <h2 id="auth-title">Sign In</h2>
+        <p id="auth-sub">Welcome back — find your perfect home.</p>
+        <div class="auth-form">
+          <label>Email Address</label>
+          <input type="email" name="email" class="mail" placeholder="you@example.com">
+          <label>Password</label>
+          <input type="password" name="password" class="password" placeholder="••••••••">
+          <div id="auth-extra" class="hidden">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your full name">
+            <label>I am a</label>
+            <select><option>Buyer / Renter</option><option>Seller</option><option>Agent</option></select>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;" onclick="login()">Continue</button>
+        </div>
+        <div class="auth-switch">Don't have an account? <a onclick="toggleAuth()">Register free</a></div>
+        <div class="auth-switch" style="margin-top:8px;"><a href="#" onclick="showPage('admin')" style="color:var(--grey-600);font-size:12px;">Admin access →</a></div>
+      </div>
+    </div>
+
+    <a href="crm-dashboard.html">Dashboard</a>
+    <a href="index.html">home</a>
+</body>
+</html>

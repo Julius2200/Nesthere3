@@ -1,0 +1,128 @@
+.page-header{
+    box-sizing: border-box;
+    max-width: 100dvw;
+    width: 100vw;
+    padding: 0.2rem 0.5rem;
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    background: var(--grey-50);
+}
+.back-arrow{
+    color: var(--green);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+}
+.page-title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+    text-align: center;
+}
+
+.add-listing-container{
+    box-sizing: border-box;
+    max-width: 100dvw;
+    width: 100dvw;
+    padding: 0.5rem;
+    background: var(--grey-50);
+}
+.progress-container{
+    position: relative;
+    width: 90%;
+    padding: 0.5rem;
+    margin: 0.5rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.progress-bar{
+    width: 90%;
+    padding: 0.2rem;
+    border: 1px solid red;
+    z-index: 1;
+    transition: background 0.5s ease;
+    -webkit-transition: background 0.5s ease;
+    -moz-transition: background 0.5s ease;
+    -ms-transition: background 0.5s ease;
+    -o-transition: background 0.5s ease;
+}
+.points-wrapper{
+    position: absolute;
+    z-index: 2;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.points{
+    width: 1.5rem;
+    aspect-ratio: 1/1;
+    background-color: var(--grey-50);
+    border: 1px solid red;
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.active-point{
+    background-color: red;
+    color: white;
+}
+
+
+
+
+/*image container wrapper*/
+.upload-container{
+    max-width: 600px;
+    margin: 20px 0;
+}
+.drop-zone{
+    display: block;
+    border: 2px dashed #0066ff;
+    padding: 30px;
+    text-align: center;
+    background: #f8faff;
+    cursor: pointer;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    transition: background 0.2s, border-color 0.2s;
+    -webkit-transition: background 0.2s, border-color 0.2s;
+    -moz-transition: background 0.2s, border-color 0.2s;
+    -ms-transition: background 0.2s, border-color 0.2s;
+    -o-transition: background 0.2s, border-color 0.2s;
+}
+/*visual highlights when dragging files over the element*/
+.drop-zone .drag-over{
+    background: #ebf3ff;
+    border-color: #0044cc;
+}
+.drop-zone input[type="file"]{
+    display: none;
+}
+.upload-icon{
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+.upload-limits{
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+.preview-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}

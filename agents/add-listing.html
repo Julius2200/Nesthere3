@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesthere | Add Listing</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/add-listing.css">
+
+    <script src="/js/main.js" defer></script>
+
+</head>
+<body>
+    <div class="page-header">
+        <p class="back-arrow">
+            &LeftAngleBracket;
+        </p>
+
+        <h3 class="page-title">Add Listing</h3>
+    </div>
+
+    <form action="" method="post" class="add-lisitng-form">
+        <section class="add-listing-container">
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+                <div class="points-wrapper">
+                    <div class="points active-point">1</div>
+                    <div class="points">2</div>
+                    <div class="points">3</div>
+                    <div class="points">4</div>
+                    <div class="points">5</div>
+                </div>
+            </div>
+
+            <div class="add-lisitng-box">
+                <select name="category" id="">
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                </select>
+                <select name="condition" id="">
+                    <option value="buy">Buy</option>
+                    <option value="rent">Rent</option>
+                    <option value="lease">Lease</option>
+                </select>
+                <input type="number" name="price" placeholder="Price">
+                <input type="text" name="about" placeholder="About">
+                <input type="textarea" name="prop_desc" placeholder="Property Description">
+                <input type="text">
+            </div>
+
+            <div class="add-lisitng-box">
+                <input type="text" name="propName" placeholder="Property Name">
+                <input type="text" name="address" placeholder="Enter address">
+                <input type="number" name="rooms" placeholder="Rooms" min="1">
+                <input type="number" name="baths" placeholder="Bathrooms" min="1">
+                <input type="text" name="epc_rate" placeholder="EPC Rating">
+                <input type="text" name="tax_band" placeholder="Tax Band">
+                <input type="text" name="tenure" placeholder="Tenure">
+            </div>
+
+            <div class="add-lisitng-box">
+                <div class="passport-entry-wrapper">
+                    <select name="pass_type" id="">
+                        <option value="0">Select an operation</option>
+                        <option value="repairs">Repairs</option>
+                        <option value="renovation">Renovation</option>
+                        <option value="reconstruction">Reconstruction</option>
+                    </select>
+                    <input type="text" name="pass_desc" placeholder="Brief description">
+                    <button>Add</button>
+                </div>
+
+                <div class="neighbourhood-entry-wrapper">
+                    <label for="n-year">Year</label>
+                    <input type="number" name="year" id="n-year" min="1" >
+                    <input type="text" name="neighbourhood_desc" placeholder="Brief description">
+                    <button>Add</button>
+                </div>
+                <div class="prox-entry-wrapper">
+                    <select name="prox_type" id="">
+                        <option value="0">Select an option</option>
+                        <option value="school">School</option>
+                        <option value="train">Train station</option>
+                        <option value="mall">Shopping mall</option>
+                        <option value="park">Parks</option>
+                    </select>
+                    <input type="text" name="prox_desc" placeholder="Close amenities">
+                    <div class="dist-wrapper">
+                        <input type="number" name="prox_dist" id="" min="0">
+                        <span>km</span>
+                        <button>Add</button>
+                    </div>
+                </div>
+                <input type="text" name="vt_url" placeholder="Virtual tour url">
+            </div>
+
+            <div class="add-lisitng-box">
+                <label for="pool">Pool</label>
+                <input type="checkbox" name="pool" id="pool" value="true">
+                
+                <label for="garden">Garden</label>
+                <input type="checkbox" name="garden" id="garden" value="true">
+                
+                <label for="parking">Parking</label>
+                <input type="checkbox" name="parking" id="parking" value="true">
+                <div class="parking-type-wrapper">
+                    <label for="inside">Inner Parking</label>
+                    <input type="radio" name="park_type" id="inner" value="in park">
+
+                    <label for="outer">Outer parking</label>
+                    <input type="radio" name="park_type" id="outer" value="out park">
+                </div>
+            </div>
+
+            <div class="add-lisitng-box">
+                <div class="image-entry-wrapper">
+                    <h3 class="image-entry-title">Enter Property Images</h3>
+
+                    <div class="upload-container">
+                        <label for="photos" class="drop-zone" id="drop-zone">
+                            <div class="drop-zone-content">
+                                <span class="upload-icon">&image;</span>
+                                <p><strong>Drag and drop property photos</strong> or click to browse</p>
+
+                                <span class="upload-limits">
+                                    Supports JPG, PNG, (max 15 photos)
+                                </span>
+                            </div>
+                            <!--The actual functional input is hidden out of sight-->
+                            <input type="file" name="picture" id="photos" multiple accept="image/*" required>
+                        </label>
+                        <!--Visual container showing previews of chosen images-->
+                        <div id="preview-grid" class="preview-grid"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="action-btn-wrapper">
+                    <button class="prev-btn" onclick="updateFormProgress()">&LeftAngleBracket; Prev</button>
+                    <button class="next-btn">Submit</button>
+                </div>
+        </section>
+    </form>
+
+    <div id="footer-layout"></div>
+    <a href="/index.html">Home</a>
+    <a href="dashboard.html">Agents Dashboard</a>
+    <a href="/search.html">Listings</a>
+</body>
+</html>

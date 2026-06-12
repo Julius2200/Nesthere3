@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestHere Property Detail</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/details.css">
+
+    <script src="js/main.js"></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/render-details.js" defer></script>
+</head>
+<body>
+    <div id="nav-layout"></div>
+
+    <!-- ══ PAGE: PROPERTY DETAIL ══ -->
+    <div id="page-detail" class="page">
+      <div class="detail-layout">
+        <div class="prop-detail-wrapper">
+          <div class="detail-gallery">
+            <img id="detail-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80" alt="Property">
+            <div class="gallery-counter">1 / 8</div>
+            <div style="position:absolute;top:14px;left:14px;display:flex;gap:8px;">
+              <span class="badge badge-sale" id="detail-badge">FOR SALE</span>
+              <span class="badge badge-new" id="detail-new-badge">NEW</span>
+            </div>
+            <div style="position:absolute;top:14px;right:14px;display:flex;gap:8px;">
+              <button class="btn btn-ghost" style="background:rgba(255,255,255,0.9);font-size:13px;padding:7px 12px;" onclick="showModal('modal-alert')">🔔 Alert</button>
+              <button class="btn btn-primary" style="font-size:13px;padding:7px 12px;" onclick="showModal('modal-save')">♡ Save</button>
+            </div>
+          </div>
+          <div style="margin-top:20px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div>
+                <div class="prop-price" id="detail-price">£625,000</div>
+                <div class="prop-addr" id="detail-addr">📍 12 Oakwood Drive, London, SW16 4XX</div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost" style="font-size:13px;">Share ↗</button>
+                <button class="btn btn-outline" style="font-size:13px;" onclick="showModal('modal-save')">♡ Save</button>
+              </div>
+            </div>
+            <div class="detail-tabs">
+              <button class="detail-tab active" onclick="setDetailTab(this,'tab-overview')">Overview</button>
+              <button class="detail-tab" onclick="setDetailTab(this,'tab-details')">Details</button>
+              <button class="detail-tab" onclick="setDetailTab(this,'tab-features')">Features</button>
+              <button class="detail-tab" onclick="setDetailTab(this,'tab-location')">Location</button>
+            </div>
+            <div id="tab-overview">
+              <div class="detail-section">
+                <div class="key-stats">
+                  <div class="key-stat"><div class="val" id="detail-beds">4</div><div class="lbl">Bedrooms</div></div>
+                  <div class="key-stat"><div class="val" id="detail-baths">3</div><div class="lbl">Bathrooms</div></div>
+                  <div class="key-stat"><div class="val" id="detail-sqft">2,450</div><div class="lbl">Sq Ft</div></div>
+                  <div class="key-stat"><div class="val" id="detail-epc">D</div><div class="lbl">EPC Rating</div></div>
+                </div>
+              </div>
+              <div class="detail-section">
+                <h3>About this property</h3>
+                <p id="detail-about" style="font-size:14px;line-height:1.7;color:var(--grey-800);">A stunning 4-bedroom detached family home set in a quiet residential street in sought-after SW16. This beautifully presented property offers generous living accommodation across three floors, with a private south-facing garden, double garage, and recently refurbished kitchen and bathrooms. Walking distance to Streatham Common and excellent transport links.</p>
+              </div>
+              <div class="detail-section">
+                <h3>Key Features</h3>
+                <ul class="feature-list" id="detail-features">
+                  <li>4 double bedrooms</li><li>3 bathrooms (2 en-suite)</li>
+                  <li>South-facing rear garden</li><li>Double garage & driveway</li>
+                  <li>Refurbished kitchen 2024</li><li>Open plan living area</li>
+                  <li>Near top-rated schools</li><li>Excellent transport links</li>
+                </ul>
+              </div>
+              <div class="special-btns">
+                <div class="special-btn" onclick="showPage('timemachine')">
+                  <div class="sb-icon">🕐</div>
+                  <div class="sb-text"><p>Neighborhood Time Machine</p><span>See how this area has changed over time</span></div>
+                </div>
+                <div class="special-btn" onclick="showPage('passport')">
+                  <div class="sb-icon">🛂</div>
+                  <div class="sb-text"><p>Property Passport</p><span>Full history of maintenance & renovations</span></div>
+                </div>
+              </div>
+            </div>
+            <div id="tab-details" class="hidden">
+              <div class="detail-section">
+                <h3>Property Details</h3>
+                <table style="width:100%;font-size:14px;border-collapse:collapse;">
+                  <tr><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);color:var(--grey-600);width:40%;">Property Type</td><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);font-weight:600;">Detached House</td></tr>
+                  <tr><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);color:var(--grey-600);">Tenure</td><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);font-weight:600;">Freehold</td></tr>
+                  <tr><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);color:var(--grey-600);">Council Tax Band</td><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);font-weight:600;">F</td></tr>
+                  <tr><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);color:var(--grey-600);">EPC Rating</td><td style="padding:9px 0;border-bottom:1px solid var(--grey-200);font-weight:600;">D (55)</td></tr>
+                  <tr><td style="padding:9px 0;color:var(--grey-600);">Listed</td><td style="padding:9px 0;font-weight:600;">2 weeks ago</td></tr>
+                </table>
+              </div>
+            </div>
+            <div id="tab-features" class="hidden">
+              <div class="detail-section">
+                <h3>Features & Amenities</h3>
+                <ul class="feature-list">
+                  <li>Private garden</li><li>Garage</li><li>Driveway parking</li><li>Central heating</li>
+                  <li>Double glazing</li><li>Loft room</li><li>Utility room</li><li>Cellar storage</li>
+                </ul>
+              </div>
+            </div>
+            <div id="tab-location" class="hidden">
+              <div class="detail-section">
+                <h3>Location</h3>
+                <div style="height:200px;background:linear-gradient(135deg,#DBE2D5,#BFCFB6);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--green);font-weight:700;">📍 Interactive Map — SW16 4XX</div>
+                <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;">
+                  <div>🚉 Streatham Station — 0.4 mi</div>
+                  <div>🏫 Outstanding Primary — 0.3 mi</div>
+                  <div>🛒 Sainsbury's — 0.6 mi</div>
+                  <div>🌳 Streatham Common — 0.5 mi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="agent-card">
+          <div class="detail-section">
+            <div class="agent-header">
+              <div class="agent-avatar">GE</div>
+              <div><div class="agent-name">Greenwood Estates</div><div class="agent-agency">SW London Branch</div></div>
+            </div>
+            <div class="contact-form">
+              <input type="text" placeholder="Your name">
+              <input type="email" placeholder="Email address">
+              <input type="tel" placeholder="Phone number">
+              <textarea placeholder="I'd like to arrange a viewing for this property..."></textarea>
+              <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="contactAgent('enquiry')">Send Enquiry</button>
+              <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:8px;" onclick="contactAgent('call')">📞 Call Agent</button>
+            </div>
+          </div>
+          <div class="detail-section" style="text-align:center;">
+            <div style="font-size:13px;color:var(--grey-600);margin-bottom:10px;">Thinking of selling?</div>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">Get Free Valuation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: TIME MACHINE ══ -->
+    <div id="page-timemachine" class="page">
+      <div class="tm-inner">
+        <div class="tm-header">
+          <div class="tm-title">
+            <h2>🕐 Neighborhood Time Machine</h2>
+            <p style="color:var(--grey-600);font-size:14px;">Explore how Oakwood Heights has grown and changed over the years.</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-ghost">↗ Share</button>
+            <button class="btn btn-outline" onclick="showModal('modal-save')">♡ Save Neighbourhood</button>
+          </div>
+        </div>
+        <div class="tm-layout">
+          <div class="tm-map-area">
+            <div class="tm-controls">
+              <div>
+                <label style="font-size:12px;font-weight:700;color:var(--grey-600);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px;">Select Year</label>
+                <select class="year-select" id="year-select" onchange="updateYear(this.value)">
+                  <option>1950</option><option>1960</option><option>1970</option><option>1980</option>
+                  <option>1990</option><option selected>1995</option><option>2000</option><option>2005</option>
+                  <option>2010</option><option>2015</option><option>2020</option><option>2024</option>
+                </select>
+              </div>
+              <div class="timeline-wrap">
+                <input type="range" class="year-slider" min="1950" max="2024" value="1995" id="year-slider" oninput="syncYear(this.value)">
+                <div class="timeline-labels"><span>1950</span><span>1970</span><span>1990</span><span>2010</span><span>2024</span></div>
+              </div>
+            </div>
+            <div class="tm-map">
+              <div style="background:linear-gradient(135deg,#DBE2D5 0%,#B7C8AE 100%);width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80" alt="Aerial map" style="width:100%;height:100%;object-fit:cover;opacity:0.7;">
+                <div class="tm-map-year" id="tm-year-label">1995</div>
+                <div class="tm-map-label" style="bottom:60px;left:50%;transform:translateX(-50%);">📍 Oakwood Heights</div>
+                <div class="tm-map-note"><p>ℹ️ Historical aerial imagery shows approximate conditions and may not reflect exact boundaries.</p></div>
+              </div>
+            </div>
+            <div class="tm-stats-bar">
+              <div class="tm-stat"><div class="label">📅 First Imagery</div><div class="value">1950</div></div>
+              <div class="tm-stat"><div class="label">📚 Total Years</div><div class="value">74+</div></div>
+              <div class="tm-stat"><div class="label">🖼 Sources</div><div class="value" style="font-size:13px;">USDA, Google, Maxar</div></div>
+              <div class="tm-stat"><div class="label">🔄 Last Updated</div><div class="value" style="font-size:13px;">May 2024</div></div>
+            </div>
+          </div>
+          <div class="tm-milestones">
+            <h3>Key Changes Over Time</h3>
+            <p>Major milestones in Oakwood Heights</p>
+            <div class="milestone"><div class="milestone-icon" style="background:var(--stone);">🌳</div><div class="milestone-body"><div class="milestone-year">1972</div><div class="milestone-title">Parks & Green Space</div><div class="milestone-desc">Oakwood Park was established, creating green space for the community.</div></div></div>
+            <div class="milestone"><div class="milestone-icon" style="background:#fff3cd;">🛣️</div><div class="milestone-body"><div class="milestone-year">1988</div><div class="milestone-title">Main Road Expansion</div><div class="milestone-desc">Oakwood Road expanded to improve access to growing neighbourhoods.</div></div></div>
+            <div class="milestone"><div class="milestone-icon" style="background:var(--copper-soft);">🏠</div><div class="milestone-body"><div class="milestone-year">2001</div><div class="milestone-title">Residential Boom</div><div class="milestone-desc">Large-scale housing development transformed open land into vibrant communities.</div></div></div>
+            <div class="milestone"><div class="milestone-icon" style="background:var(--stone-deep);">🏛️</div><div class="milestone-body"><div class="milestone-year">2015</div><div class="milestone-title">New Community Centre</div><div class="milestone-desc">The Oakwood Community Centre opened, enhancing neighbourhood amenities.</div></div></div>
+            <div class="milestone"><div class="milestone-icon" style="background:var(--stone);">♻️</div><div class="milestone-body"><div class="milestone-year">2022</div><div class="milestone-title">Sustainable Growth</div><div class="milestone-desc">New sustainable development projects and green initiatives launched.</div></div></div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px;">View Full Timeline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: PROPERTY PASSPORT ══ -->
+    <div id="page-passport" class="page">
+      <div class="passport-layout">
+        <div class="pp-leftnav">
+          <div class="pp-leftnav-card">
+            <div class="pp-prop-img"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=80" alt="Property"></div>
+            <div class="pp-prop-info">
+              <h4>12 Oakwood Drive</h4>
+              <p>London, SW16 4XX</p>
+              <a href="#" onclick="showPage('detail')">View property details →</a>
+            </div>
+            <div class="pp-nav-links">
+              <a href="#" onclick="showPage('detail')">📋 Overview</a>
+              <a href="#" onclick="showPage('detail')">📷 Photos</a>
+              <a href="#" onclick="showPage('detail')">📐 Floor Plans</a>
+              <a href="#" onclick="showPage('detail')">📍 Location</a>
+              <a href="#" onclick="showPage('detail')">⚡ EPC</a>
+              <a href="#" onclick="showPage('detail')">📄 Documents</a>
+              <a href="#" class="active">🛂 Property Passport</a>
+              <a href="#" onclick="showPage('detail')">📝 Notes</a>
+            </div>
+            <div style="padding:14px;">
+              <div style="font-size:13px;color:var(--grey-600);margin-bottom:8px;font-weight:600;">Own this property?</div>
+              <p style="font-size:12px;color:var(--grey-600);margin-bottom:10px;">Add or manage your Property Passport records.</p>
+              <button class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px;" onclick="managePassport()">🔐 Add Passport records</button>
+            </div>
+          </div>
+        </div>
+        <div class="pp-main">
+          <div class="pp-header">
+            <div class="pp-title-row">
+              <div class="pp-shield">🛂</div>
+              <div>
+                <h2 style="font-size:24px;font-weight:800;margin-bottom:4px;">Property Passport</h2>
+                <p style="font-size:14px;color:var(--grey-600);">A detailed history of maintenance and improvements to help you buy with confidence.</p>
+              </div>
+            </div>
+            <div class="pp-badges">
+              <div class="pp-badge">🛡️ Secure & Verified — Records are private and tamper-proof</div>
+              <div class="pp-badge">🔒 Owner Controlled — Only verified owners can add or edit records</div>
+            </div>
+            <div class="pp-search-bar">
+              <input type="text" placeholder="Search records (e.g. kitchen, roof, windows)">
+              <select><option>All Work Types</option><option>Plumbing</option><option>Electrical</option><option>Roofing</option><option>Renovation</option><option>Landscaping</option></select>
+              <select><option>All Dates</option><option>Last Year</option><option>Last 3 Years</option><option>Last 5 Years</option><option>All Time</option></select>
+              <button class="btn btn-ghost" style="font-size:13px;">Clear</button>
+            </div>
+          </div>
+          <div class="pp-records">
+            <div class="pp-records-header">
+              <span style="font-weight:700;">9 records found</span>
+              <select style="border:1px solid var(--grey-200);border-radius:6px;padding:5px 10px;font-size:13px;background:#fff;outline:none;">
+                <option>Sort by: Date (Newest first)</option>
+                <option>Sort by: Date (Oldest first)</option>
+                <option>Sort by: Cost (High-Low)</option>
+              </select>
+            </div>
+            <div id="pp-records-list"></div>
+            <div style="padding:20px;text-align:center;border-top:1px solid var(--grey-200);">
+              <button class="btn btn-outline">Load more records ∨</button>
+            </div>
+          </div>
+        </div>
+        <div class="pp-sidebar">
+          <div class="pp-sidebar-card">
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px;" onclick="managePassport()">🔒 Add / Edit Records</button>
+            <p style="font-size:13px;color:var(--grey-600);margin-bottom:0;">Owners and agents can add, edit or delete records once signed in.</p>
+            <div style="text-align:center;margin-top:10px;"><a href="#" style="font-size:13px;color:var(--green);text-decoration:none;">How it works ❓</a></div>
+          </div>
+          <div class="pp-sidebar-card">
+            <h4>Property Passport Summary</h4>
+            <div class="pp-summary-row"><span style="color:var(--grey-600);">Total Records</span><span style="font-weight:700;">9</span></div>
+            <div class="pp-summary-row"><span style="color:var(--grey-600);">Total Invested</span><span style="font-weight:700;color:var(--green);">£18,650</span></div>
+            <div class="pp-summary-row"><span style="color:var(--grey-600);">Last Updated</span><span style="font-weight:700;">20 May 2024</span></div>
+            <div class="pp-summary-row"><span style="color:var(--grey-600);">Verified By</span><span style="font-weight:700;color:var(--green);">NestHere ✓</span></div>
+          </div>
+          <div class="pp-sidebar-card">
+            <h4>Why it matters</h4>
+            <ul class="pp-why">
+              <li>Builds trust and transparency</li>
+              <li>Helps justify asking price</li>
+              <li>Useful for buyers, valuers and insurers</li>
+              <li>A permanent record that stays with the property</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--green-dark);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+          <span style="color:rgba(255,255,255,0.8);font-size:13px;">🔒 Secure</span>
+          <span style="color:rgba(255,255,255,0.8);font-size:13px;">🔏 Private</span>
+          <span style="color:rgba(255,255,255,0.8);font-size:13px;">✅ Tamper-proof</span>
+        </div>
+        <div style="display:flex;gap:16px;">
+          <span style="color:rgba(255,255,255,0.7);font-size:13px;">Questions? <a href="#" style="color:#fff;text-decoration:underline;">Contact support</a></span>
+          <button class="btn btn-outline" style="font-size:12px;padding:5px 12px;border-color:rgba(255,255,255,0.4);color:#fff;">Learn more about Property Passport</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ══ TOAST ══ -->
+    <div class="toast" id="toast">✓ <span id="toast-msg">Saved!</span></div>
+
+    <div id="footer-layout"></div>
+
+    <a href="index.html">home</a>
+    <a href="search.html">Property search</a>
+</body>
+</html>

@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NestHere – Find. Save. Settle.</title>
+<style>
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+  
+  
+</style>
+</head>
+<body>
+<script>
+
+// ══ RENDER GRIDS ══
+function renderHomeGrid() {
+  const grid = document.getElementById('home-prop-grid');
+  if (!grid) return;
+  grid.innerHTML = properties.slice(0,4).map(p => propCard(p, 'detail')).join('');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// content builders to keep the data compact
+function hub(category, standfirst, cards, related) {
+  const blocks = [{ type:'cards', items: cards }];
+  if (related) blocks.push({ type:'related', items: related });
+  return { category, standfirst, blocks };
+}
+function locationPage(name, avg, change, listings, areas) {
+  return {
+    category: 'Major towns and cities in the UK',
+    standfirst: `Browse property for sale and to rent across ${name}, with local price trends and the most in-demand areas.`,
+    blocks: [
+      { type:'stats', items: [
+        { v: avg, l: `Average asking price in ${name}` },
+        { v: change, l: 'Change in the last 12 months' },
+        { v: listings, l: 'Live listings right now' }
+      ]},
+      { type:'listings', area: name, title: `Homes in ${name}` },
+      { type:'cta', heading: `Find your next home in ${name}`, text: 'Listings are updated throughout the day.', buttons: [
+        { label: `Homes for sale in ${name}`, action: `catalogue:buy:${name}` },
+        { label: `Homes to rent in ${name}`, action: `catalogue:rent:${name}`, variant: 'outline' }
+      ]},
+      { type:'cards', title: `Popular areas in ${name}`, items: areas.map(a => ({ title: a, blurb: `See homes around ${a}.`, action: `catalogue:buy:${name}` })) }
+    ]
+  };
+}
+
+function overseasPage(country, regions, avg) {
+  return {
+    category: 'Overseas',
+    standfirst: `Find a place in the sun in ${country} \u2014 from ${regions}.`,
+    blocks: [
+      { type:'stats', items:[
+        { v: avg, l:`Typical asking price in ${country}` },
+        { v:'5\u201310%', l:'Indicative purchase costs', s:'Taxes & fees' },
+        { v:'GBP \u2192 EUR', l:'Budget in local currency', s:'Use the converter' }
+      ]},
+      { type:'cta', heading:`Browse homes in ${country}`, text:'Overseas listings are illustrative in this prototype.', buttons:[
+        { label:'Overseas homes for sale', action:'content:Overseas homes for sale' },
+        { label:'Currency converter', action:'content:Currency converter', variant:'outline' }
+      ]},
+      { type:'related', items:['Overseas','Sell overseas property','Currency converter'] }
+    ]
+  };
+}
+
+
+// ══ DISPLAY ADVERTISING (HOME & PROPERTY SERVICES) ══
+const DADV_FEATURES = [
+  { tag:'Targeting', title:'Reach the right people', desc:'Our audience is defined by what they\u2019re searching for. Target in-market home movers \u2014 even after they leave NestHere \u2014 using leading ad technologies.' },
+  { tag:'Attention', title:'Get noticed', desc:'NestHere keeps advertising light, so your share of attention isn\u2019t split across dozens of ads. Your brand is far more likely to be seen.' },
+  { tag:'Context', title:'Catch the buying mindset', desc:'Moving home triggers dozens of other purchases \u2014 from sofas to insurance. Reach people exactly when they\u2019re making those decisions.' }
+];
+const DADV_STATS = [ { num:'8.4m', lab:'unique visitors a month' }, { num:'30m+', lab:'visits a month' }, { num:'250m+', lab:'pages viewed a month' } ];
+const DADV_SECTORS = ['Please choose one','Automotive','Banking & finance','Consumer goods','Education','Energy & utilities','Food & drink','Healthcare','Home & garden','Insurance','Media','Telecoms','Travel','Other'];
+function renderDisplayAdvertise() {
+  const feats = DADV_FEATURES.map(f => `<div class="adv-seg"><div class="adv-tag">${f.tag}</div><h3>${f.title}</h3><p>${f.desc}</p></div>`).join('');
+  const stats = DADV_STATS.map(s => `<div class="ds-use"><div class="num">${s.num}</div><div class="lab">${s.lab}</div></div>`).join('');
+  const sectors = DADV_SECTORS.map(s => `<option>${s}</option>`).join('');
+  return `<div class="adv-wrap">
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Display advertising</div>
+      <h1>Get your brand seen by a huge home-moving audience</h1>
+      <p class="adv-sub">Reach millions of people who are moving home \u2014 and making all the buying decisions that come with it \u2014 with display advertising on NestHere.</p>
+      <div class="adv-btns">
+        <button class="btn btn-copper btn-lg" onclick="document.getElementById('dadv-contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+        <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Data Services')">Explore Data Services</button>
+      </div>
+      <p class="adv-foot-note">Audience figures are illustrative for this prototype.</p>
+    </div>
+    <div class="adv-note"><span>\ud83c\udfeb</span><span>Advertising a school? Families come to NestHere to find a home near the right school \u2014 <a onclick="openContent('Contact us')">talk to our team</a> about reaching them.</span></div>
+    <div class="adv-intro"><h2>Why advertise with NestHere?</h2><p>Our home-moving audience is one of the largest and most engaged in the UK, giving advertisers a rare mix of scale and attention.</p></div>
+    <div class="adv-seg-grid">${feats}</div>
+    <div class="adv-intro"><h2>The audience</h2><p>In an average month on NestHere we see:</p></div>
+    <div class="ds-usage">${stats}</div>
+    <div class="adv-data">
+      <div><h3>Target with NestHere data</h3><p>Use our audience and market insight to reach the right people, in the right places, at the right time.</p></div>
+      <button class="btn btn-primary" onclick="openContent('Data Services')">Explore Data Services</button>
+    </div>
+    <div class="adv-contact" id="dadv-contact">
+      <h2>Contact us</h2>
+      <p>If you\u2019re a property professional looking to advertise listings, head to <a onclick="openContent('Advertise on NestHere')" style="color:var(--copper-soft);font-weight:700;cursor:pointer;text-decoration:underline;">Advertise on NestHere</a> instead. Otherwise, tell us about your brand.</p>
+      <div class="adv-q">Which best describes what you\u2019ll be advertising?</div>
+      <select class="adv-select" id="dadv-sector">${sectors}</select>
+      <div><button class="btn btn-copper" onclick="dadvContinue()">Continue</button></div>
+    </div>
+  </div>`;
+}
+function dadvContinue() {
+  showToast('\u2713 Thanks \u2014 we\u2019ll be in touch about display advertising');
+  openContent('Contact us');
+}
+
+// ══ COMMERCIAL ADVERTISING ══
+const CADV_STATS_HERO = [ { num:'67%', lab:'of time on top commercial portals is with us' }, { num:'73%', lab:'of our audience search only on NestHere Commercial' }, { num:'40m+', lab:'annual visits to our commercial pages' } ];
+const CADV_TRUST_STATS = [ { num:'33%', lab:'of visits from companies of 500+ employees' }, { num:'84/100', lab:'of the FTSE 100 search on NestHere Commercial' }, { num:'4\u00d7', lab:'more commercial traffic than our nearest rival' } ];
+const CADV_MEMBERSHIP = [
+  { tag:'Tools', title:'NestHere Plus', items:['See how your listings and the market are performing','Upload via your own software or NestHere Plus','Spot new instruction opportunities','Show clients the impact of their marketing'] },
+  { tag:'Support', title:'Dedicated account manager', items:['Market, sector and regional insight','Reviews of your campaign performance','A sounding board for business challenges','Strategies to get the most from your package'] },
+  { tag:'Exposure', title:'Featured & premium listings', items:['Stand out in commercial search results','Showcase stock with more images','Greater exposure and engagement','Rise above the competition'] },
+  { tag:'Marketing', title:'Digital marketing campaigns', items:['Attention-grabbing creative','Built for a commercial audience','Timely email and SMS campaigns','Reach occupiers even off NestHere'] }
+];
+const CADV_SECTORS = ['Offices','Industrial & warehouses','Retail','Land & development','Leisure & hospitality','Other'];
+const CADV_FAQ = [
+  { q:'Why advertise on NestHere Commercial?', a:'You reach one of the UK\u2019s largest and most engaged commercial audiences \u2014 occupiers and investors you can\u2019t easily reach elsewhere.' },
+  { q:'How much does it cost?', a:'We offer a range of packages, so you choose how much exposure you want. The more properties you advertise, the better the value per property. Get in touch for pricing.' },
+  { q:'What types of property can I list?', a:'Any commercial property \u2014 offices, retail and industrial through to land, development opportunities, leisure and hospitality.' },
+  { q:'How do you make sure my listings get seen?', a:'Ours is one of the most visited commercial portals in the UK, and Featured and Premium Listings help your stock stand out in search results for even greater exposure.' }
+];
+const CADV_QUOTES = [
+  { text:'We assumed NestHere was residential-only, then tried it and were amazed how many people search for offices here. It\u2019s become our favourite portal for the deals we\u2019ve done.', cite:'Pheasant & Rowe', sub:'Commercial agency, London' },
+  { text:'The platform is quick to list and remove investment sales \u2014 vital in a fast-moving market \u2014 and the results have been excellent since we joined.', cite:'Kestrel Group', sub:'Investment sales' }
+];
+const CADV_BIZTYPES = ['Choose one','Agent / surveyor','Landlord / owner','Developer','Council','Serviced office provider','Business transfer agent','Other'];
+const CADV_COUNTS = ['1','2\u20136','7+'];
+function renderCommercialAdvertise() {
+  const heroStats = CADV_STATS_HERO.map(s => `<div class="adv-stat"><div class="num">${s.num}</div><div class="lab">${s.lab}</div></div>`).join('');
+  const trust = CADV_TRUST_STATS.map(s => `<div class="ds-use"><div class="num">${s.num}</div><div class="lab">${s.lab}</div></div>`).join('');
+  const member = CADV_MEMBERSHIP.map(m => `<div class="adv-seg"><div class="adv-tag">${m.tag}</div><h3>${m.title}</h3><ul class="adv-ul">${m.items.map(i => `<li>${i}</li>`).join('')}</ul></div>`).join('');
+  const sectors = CADV_SECTORS.map(s => `<span class="ds-tag">${s}</span>`).join('');
+  const faq = CADV_FAQ.map(f => `<details class="gh-acc"><summary>${f.q}</summary><div class="gh-acc-body"><p style="font-size:13.5px;color:var(--grey-600);line-height:1.6;margin:0;">${f.a}</p></div></details>`).join('');
+  const quotes = CADV_QUOTES.map(q => `<div class="ds-quote"><p>\u201c${q.text}\u201d</p><div class="ds-cite">${q.cite}<span>${q.sub}</span></div></div>`).join('');
+  const counts = CADV_COUNTS.map((c, i) => `<div class="adv-loc${i === 0 ? ' active' : ''}" onclick="advSetLoc(this)">${c}</div>`).join('');
+  const biz = CADV_BIZTYPES.map(b => `<option>${b}</option>`).join('');
+  return `<div class="adv-wrap">
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Commercial advertising</div>
+      <h1>Commercial property advertising with NestHere</h1>
+      <p class="adv-sub">The UK\u2019s number one commercial property destination \u2014 get your space and your brand in front of a large, engaged commercial audience.</p>
+      <div class="adv-stat-row">${heroStats}</div>
+      <div class="adv-btns">
+        <button class="btn btn-copper btn-lg" onclick="document.getElementById('cadv-contact').scrollIntoView({behavior:'smooth'})">Request contact</button>
+        <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Commercial')">Browse commercial</button>
+      </div>
+      <p class="adv-foot-note">Audience figures are illustrative for this prototype.</p>
+    </div>
+
+    <div class="adv-intro"><h2>The power of being known and trusted</h2><p>As one of the UK\u2019s most visited property sites, NestHere is associated with commercial as well as residential search. Your brand is seen by a large commercial audience \u2014 helping you win more business.</p></div>
+    <div class="ds-usage">${trust}</div>
+
+    <div class="adv-intro"><h2>More than advertising \u2014 your membership includes</h2><p>Every commercial membership comes with the tools, support and exposure to help you do more deals.</p></div>
+    <div class="adv-seg-grid">${member}</div>
+
+    <div class="adv-intro" style="margin-bottom:14px;"><h2>List any commercial property</h2><p>From offices to industrial, retail to land and leisure.</p></div>
+    <div class="ds-tags" style="margin-bottom:44px;">${sectors}</div>
+
+    <div class="adv-intro"><h2>What our clients say</h2></div>
+    <div class="ds-quotes">${quotes}</div>
+
+    <div class="adv-intro"><h2>Your questions, answered</h2></div>
+    <div style="max-width:760px;margin-bottom:44px;">${faq}</div>
+
+    <div class="adv-data">
+      <div><h3>Insight for commercial decisions</h3><p>Back your strategy with NestHere market data and the latest commercial trends.</p></div>
+      <button class="btn btn-primary" onclick="openContent('Data Services')">Explore Data Services</button>
+    </div>
+
+    <div class="adv-contact" id="cadv-contact">
+      <h2>Advertise on NestHere Commercial</h2>
+      <p>Leave your details and we\u2019ll call to discuss how we can help you win more business.</p>
+      <div class="adv-q">How many commercial properties would you like to advertise?</div>
+      <div class="adv-loc-row">${counts}</div>
+      <div class="adv-q">What best describes your business?</div>
+      <select class="adv-select" id="cadv-biz">${biz}</select>
+      <div><button class="btn btn-copper" onclick="cadvContinue()">Request contact</button></div>
+    </div>
+  </div>`;
+}
+function cadvContinue() {
+  showToast('\u2713 Thanks \u2014 our commercial team will be in touch');
+  openContent('Contact us');
+}
+
+// ══ COMPANY PAGES ══
+function coNav(active) {
+  const items = [['About','content:About'],['Press centre','content:Press centre'],['Careers','content:Careers'],['Investor relations','content:Investor relations'],['Home Views','content:Home Views'],['Contact us','content:Contact us']];
+  return `<div class="co-nav">${items.map(([l,a]) => `<span class="co-pill${l===active?' active':''}" onclick="runAction('${a}')">${l}</span>`).join('')}</div>`;
+}
+function statRow(arr) { return arr.map(s => `<div class="ds-use"><div class="num">${s.num}</div><div class="lab">${s.lab}</div></div>`).join(''); }
+function segCard(c) { return `<div class="adv-seg"><div class="adv-tag">${c.tag}</div><h3>${c.title}</h3><p>${c.desc}</p>${c.action ? `<span class="adv-link" onclick="runAction('${c.action}')">${c.cta||'Learn more'} \u2192</span>` : ''}</div>`; }
+
+// ── BUSINESS HUB ──
+function renderBusinessHub() {
+  const tools = [
+    { tag:'Insight', title:'Performance insights', desc:'See how your listings and branch are performing, and where to focus next.', action:'content:Data Services', cta:'Explore data' },
+    { tag:'Data', title:'Local market data', desc:'Pricing, supply and demand down to local level to win and value instructions.', action:'content:Data Services', cta:'See Data Services' },
+    { tag:'Listings', title:'Listing & branding tools', desc:'Featured and premium placement, a branded profile and richer listings.', action:'content:Advertise on NestHere', cta:'View advertising' },
+    { tag:'Leads', title:'Leads & enquiries', desc:'Enquiries delivered straight to you, with analytics to track conversion.', action:'content:Advertise on NestHere', cta:'How it works' },
+    { tag:'Knowledge', title:'Best-practice guides', desc:'Get more from NestHere with guides for agents and landlords.', action:'content:Landlord guides', cta:'Read guides' },
+    { tag:'Support', title:'Dedicated support', desc:'A named account manager and help whenever you need it.', action:'content:Contact us', cta:'Talk to us' }
+  ].map(segCard).join('');
+  return `<div class="adv-wrap">
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Business Hub</div>
+      <h1>Everything you need to grow with NestHere</h1>
+      <p class="adv-sub">One place for our agent, developer and operator partners \u2014 tools, market insight, advertising and support, all in NestHere Plus.</p>
+      <div class="adv-btns">
+        <button class="btn btn-copper btn-lg" onclick="agentSignIn()">Agent sign in</button>
+        <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Advertise on NestHere')">Advertise on NestHere</button>
+      </div>
+    </div>
+    <div class="adv-intro"><h2>One home for our partners</h2><p>Whether you list a handful of homes or thousands, the Business Hub brings your tools and insight together.</p></div>
+    <div class="adv-seg-grid">${tools}</div>
+    <div class="adv-intro"><h2>Ways to partner with NestHere</h2><p>Explore the right option for your business.</p></div>
+    <div class="adv-seg-grid">${[
+      { tag:'Residential', title:'Advertise on NestHere', desc:'Memberships for estate and letting agents, developers and operators.', action:'content:Advertise on NestHere', cta:'Learn more' },
+      { tag:'Commercial', title:'Advertise commercial property', desc:'Reach an engaged commercial audience of occupiers and investors.', action:'content:Advertise commercial property', cta:'Learn more' },
+      { tag:'Overseas', title:'Overseas agents & developers', desc:'Promote international property to UK buyers.', action:'content:Overseas agents and developers', cta:'Learn more' },
+      { tag:'Data', title:'Data Services', desc:'Large-scale property data to power your decisions.', action:'content:Data Services', cta:'Learn more' }
+    ].map(segCard).join('')}</div>
+    <div class="adv-contact" id="bh-contact">
+      <h2>Already a partner?</h2>
+      <p>Sign in to NestHere Plus to manage your listings, leads and performance \u2014 or get in touch to join.</p>
+      <div class="adv-btns">
+        <button class="btn btn-copper" onclick="agentSignIn()">Sign in to NestHere Plus</button>
+        <button class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Contact us')">Contact the team</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+
+// ── INVESTOR RELATIONS ──
+function renderInvestors() {
+  const reports = [
+    { tag:'2025', title:'Annual report 2025', desc:'Full-year results, strategy and governance.', name:'Annual report 2025' },
+    { tag:'2025', title:'Half-year results', desc:'Interim results and management commentary.', name:'Half-year results 2025' },
+    { tag:'Update', title:'Trading update', desc:'A short update on recent trading.', name:'Trading update' },
+    { tag:'Deck', title:'Results presentation', desc:'Slides from our latest results presentation.', name:'Results presentation' }
+  ].map(r => `<div class="adv-seg"><div class="adv-tag">${r.tag}</div><h3>${r.title}</h3><p>${r.desc}</p><span class="adv-link" onclick="irDoc('${r.name}')">Download \u2192</span></div>`).join('');
+  const acc = [
+    { q:'Financial calendar', a:'Full-year results in March, AGM in May, half-year results in September. Dates are confirmed by regulatory announcement.' },
+    { q:'Corporate governance', a:'Our board operates to UK governance standards, with audit, remuneration and nomination committees. Full details appear in the annual report.' },
+    { q:'Regulatory news', a:'Regulatory announcements are released through a recognised news service and published here for shareholders.' }
+  ].map(f => `<details class="gh-acc"><summary>${f.q}</summary><div class="gh-acc-body"><p style="font-size:13.5px;color:var(--grey-600);line-height:1.6;margin:0;">${f.a}</p></div></details>`).join('');
+  return `<div class="adv-wrap">
+    ${coNav('Investor relations')}
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Investor relations</div>
+      <h1>Financial information for NestHere shareholders</h1>
+      <p class="adv-sub">Reports, results and governance for current and prospective investors in NestHere.</p>
+      <div class="adv-stat-row">
+        <div class="adv-stat"><div class="num">\u00a3402m</div><div class="lab">revenue (illustrative)</div></div>
+        <div class="adv-stat"><div class="num">8.4m</div><div class="lab">monthly visits</div></div>
+        <div class="adv-stat"><div class="num">532k</div><div class="lab">live listings</div></div>
+      </div>
+      <p class="adv-foot-note">Financial figures are illustrative for this prototype.</p>
+    </div>
+    <div class="adv-intro"><h2>Latest reports & results</h2><p>Download our most recent publications.</p></div>
+    <div class="adv-seg-grid">${reports}</div>
+    <div class="adv-intro"><h2>Calendar, governance & news</h2></div>
+    <div style="max-width:760px;margin-bottom:44px;">${acc}</div>
+    <div class="adv-data"><div><h3>Investor enquiries</h3><p>For questions from analysts and shareholders, contact our investor relations team.</p></div><button class="btn btn-primary" onclick="openContent('Contact us')">Contact IR</button></div>
+  </div>`;
+}
+function irDoc(n) { showToast('\u2713 ' + n + ' \u2014 download starting (demo)'); }
+
+// ── CONTACT US ──
+function renderContactUs() {
+  const channels = [
+    { tag:'Home-hunters', title:'Help with the site', desc:'Saving homes, enquiries, your account and how NestHere works.', action:'content:Help Centre', cta:'Visit the Help Centre' },
+    { tag:'Agents & partners', title:'Business & partnerships', desc:'Advertising, memberships and NestHere Plus for professionals.', action:'content:Business Hub', cta:'Go to the Business Hub' },
+    { tag:'Press', title:'Press & media', desc:'Media enquiries, spokespeople and our latest releases.', action:'content:Press centre', cta:'Visit the Press centre' },
+    { tag:'Data & ads', title:'Data & advertising', desc:'Data Services and display advertising opportunities.', action:'content:Data Services', cta:'Explore Data Services' },
+    { tag:'Investors', title:'Investor relations', desc:'Reports, results and shareholder enquiries.', action:'content:Investor relations', cta:'Investor relations' },
+    { tag:'Careers', title:'Working at NestHere', desc:'Open roles and life on the team.', action:'content:Careers', cta:'See careers' }
+  ].map(segCard).join('');
+  const topics = ['Choose a topic','Using the site','Advertising & partnerships','Press & media','Data Services','Investor relations','Something else'].map(t => `<option>${t}</option>`).join('');
+  return `<div class="adv-wrap">
+    ${coNav('Contact us')}
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Contact us</div>
+      <h1>Get in touch with the right team</h1>
+      <p class="adv-sub">Pick the area that fits and we\u2019ll point you to the fastest way to get an answer.</p>
+    </div>
+    <div class="adv-seg-grid">${channels}</div>
+    <div class="adv-contact" id="cu-contact">
+      <h2>Send us a message</h2>
+      <p>Not sure who to ask? Leave us a message and we\u2019ll route it to the right team.</p>
+      <div class="adv-q">What\u2019s it about?</div>
+      <select class="adv-select" id="cu-topic">${topics}</select>
+      <div><button class="btn btn-copper" onclick="cuSend()">Send message</button></div>
+    </div>
+  </div>`;
+}
+function cuSend() { showToast('\u2713 Thanks \u2014 your message is on its way to the right team'); }
+
+// ── CAREERS ──
+const CAREERS_ROLES = [
+  { role:'Senior Frontend Engineer', meta:'Product Engineering \u00b7 London / Remote' },
+  { role:'Product Designer', meta:'Design \u00b7 London' },
+  { role:'Data Analyst', meta:'Insights \u00b7 Manchester / Remote' },
+  { role:'Account Manager', meta:'Agent Partnerships \u00b7 Bristol' },
+  { role:'Lifecycle Marketing Manager', meta:'Marketing \u00b7 London / Remote' },
+  { role:'Customer Support Specialist', meta:'Operations \u00b7 Remote' }
+];
+function renderCareers() {
+  const perks = [
+    { tag:'Purpose', title:'Real impact', desc:'Your work helps millions of people through one of life\u2019s biggest moments.' },
+    { tag:'Flexibility', title:'Flexible working', desc:'Hybrid and remote options, built around how you do your best work.' },
+    { tag:'Growth', title:'Learning budget', desc:'A yearly budget and time to keep growing your skills.' },
+    { tag:'Wellbeing', title:'Health & wellbeing', desc:'Private healthcare, support resources and a focus on balance.' },
+    { tag:'Ownership', title:'Share options', desc:'Share in the success you help build.' },
+    { tag:'Time off', title:'Generous leave', desc:'Plenty of holiday, plus a day to volunteer for a cause you care about.' }
+  ].map(segCard).join('');
+  const teams = ['Engineering','Product','Design','Data','Commercial','Marketing','Operations','People'].map(t => `<span class="ds-tag">${t}</span>`).join('');
+  const roles = CAREERS_ROLES.map(r => `<div class="co-role"><div class="co-role-info"><h4>${r.role}</h4><p>${r.meta}</p></div><span class="co-apply" onclick="coApply('${r.role}')">Apply \u2192</span></div>`).join('');
+  return `<div class="adv-wrap">
+    ${coNav('Careers')}
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Careers</div>
+      <h1>Help millions of people find their next home</h1>
+      <p class="adv-sub">We\u2019re building a calmer, clearer way to move home \u2014 and we\u2019re looking for people who want to help.</p>
+      <div class="adv-btns">
+        <button class="btn btn-copper btn-lg" onclick="document.getElementById('careers-roles').scrollIntoView({behavior:'smooth'})">See open roles</button>
+        <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('About')">About NestHere</button>
+      </div>
+    </div>
+    <div class="adv-intro"><h2>Why work here</h2><p>A few of the things we offer everyone on the team.</p></div>
+    <div class="adv-seg-grid">${perks}</div>
+    <div class="adv-intro" style="margin-bottom:14px;"><h2>Teams we hire for</h2></div>
+    <div class="ds-tags" style="margin-bottom:44px;">${teams}</div>
+    <div class="adv-intro" id="careers-roles"><h2>Open roles</h2><p>A selection of roles we\u2019re hiring for right now.</p></div>
+    <div class="co-roles">${roles}</div>
+    <div class="adv-data"><div><h3>Don\u2019t see your role?</h3><p>We\u2019re always keen to meet talented people. Tell us how you\u2019d help.</p></div><button class="btn btn-primary" onclick="openContent('Contact us')">Get in touch</button></div>
+  </div>`;
+}
+function coApply(r) { showToast('\u2713 Thanks for your interest in ' + r + ' \u2014 we\u2019ll be in touch'); openContent('Contact us'); }
+
+// ── HOME VIEWS ──
+const HV_DEVELOPMENTS = [
+  { name:'The Maltings', loc:'Bristol', score:4.6, action:'catalogue:buy:Bristol', blurb:'Converted warehouse apartments with a strong sense of community.' },
+  { name:'Quayside Lofts', loc:'Manchester', score:4.4, action:'catalogue:buy:Manchester', blurb:'Waterside living with great transport links and amenities.' },
+  { name:'Cathedral View', loc:'Edinburgh', score:4.7, action:'catalogue:buy:Edinburgh', blurb:'Characterful homes in the heart of the old town.' }
+];
+function renderHomeViews() {
+  const steps = [
+    { tag:'1', title:'Find a development', desc:'Search by area or development to see what residents say.' },
+    { tag:'2', title:'Read verified reviews', desc:'Honest ratings from people who actually live there.' },
+    { tag:'3', title:'Move with confidence', desc:'Get a real feel for an area before you ever book a viewing.' }
+  ].map(segCard).join('');
+  const devs = HV_DEVELOPMENTS.map(d => `<div class="adv-seg">
+      <div class="co-rate"><span class="co-stars">${faStars(d.score)}</span><span class="co-score">${d.score.toFixed(1)}</span></div>
+      <h3>${d.name}</h3>
+      <p style="margin-bottom:6px;color:var(--forest-mid);font-weight:600;font-size:12.5px;">${d.loc}</p>
+      <p>${d.blurb}</p>
+      <span class="adv-link" onclick="runAction('${d.action}')">See homes here \u2192</span>
+    </div>`).join('');
+  const rated = ['Community','Safety','Transport','Design','Value','Management','Green space','Facilities'].map(t => `<span class="ds-tag">${t}</span>`).join('');
+  const quotes = [
+    { text:'The community here is brilliant \u2014 there\u2019s always something on, and the management team actually listen.', cite:'Resident', sub:'The Maltings, Bristol' },
+    { text:'Brilliant transport links and the building feels secure. Worth every penny for the location.', cite:'Resident', sub:'Quayside Lofts, Manchester' }
+  ].map(q => `<div class="ds-quote"><p>\u201c${q.text}\u201d</p><div class="ds-cite">${q.cite}<span>${q.sub}</span></div></div>`).join('');
+  return `<div class="adv-wrap">
+    ${coNav('Home Views')}
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Home Views</div>
+      <h1>Real reviews from the people who live there</h1>
+      <p class="adv-sub">Home Views collects verified resident ratings on the things that matter \u2014 community, safety, transport and value \u2014 so you can get a feel for a place before you visit.</p>
+      <div class="adv-btns">
+        <button class="btn btn-copper btn-lg" onclick="runAction('catalogue:buy')">Browse homes for sale</button>
+        <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Find an agent')">Find an agent</button>
+      </div>
+    </div>
+    <div class="adv-intro"><h2>How it works</h2></div>
+    <div class="adv-seg-grid">${steps}</div>
+    <div class="adv-intro"><h2>Top-rated developments</h2><p>A few places residents rate highly right now.</p></div>
+    <div class="adv-seg-grid">${devs}</div>
+    <div class="adv-intro" style="margin-bottom:14px;"><h2>What residents rate</h2></div>
+    <div class="ds-tags" style="margin-bottom:44px;">${rated}</div>
+    <div class="adv-intro"><h2>In residents\u2019 words</h2></div>
+    <div class="ds-quotes">${quotes}</div>
+  </div>`;
+}
+
+// ══ HELP & LEGAL ══
+function legalNav(active) {
+  const items = [['Help Centre','content:Help Centre'],['Safety and Security','content:Safety and Security'],['Privacy Policy','content:Privacy Policy'],['Cookie Policy','content:Cookie Policy'],['Terms of Use','content:Terms of Use'],['Site map','content:Site map']];
+  return `<div class="co-nav">${items.map(([l,a]) => `<span class="co-pill${l===active?' active':''}" onclick="runAction('${a}')">${l}</span>`).join('')}</div>`;
+}
+function helpFaqAcc(arr) { return arr.map(f => `<details class="gh-acc"><summary>${f.q}</summary><div class="gh-acc-body"><p style="font-size:13.5px;color:var(--grey-600);line-height:1.6;margin:0;">${f.a}</p></div></details>`).join(''); }
+
+function renderHelpCentre() {
+  const topics = [
+    { tag:'Buying & renting', title:'Searching & saving', desc:'Find homes, save favourites and set up alerts.', onclick:"runAction('catalogue:buy')", cta:'Start a search' },
+    { tag:'Enquiries', title:'Contacting agents', desc:'Send enquiries and book viewings with confidence.', onclick:"openContent('Find an agent')", cta:'Find an agent' },
+    { tag:'Selling & letting', title:'Listing a property', desc:'Advertise your home or manage a listing.', onclick:"runAction('addlisting')", cta:'List a property' },
+    { tag:'Account', title:'Your account', desc:'Sign in, saved homes, alerts and preferences.', onclick:"showPage('dashboard')", cta:'Go to your account' },
+    { tag:'Staying safe', title:'Safety & security', desc:'Spot scams and move safely.', onclick:"openContent('Safety and Security')", cta:'Safety advice' },
+    { tag:'Guides & tools', title:'Guides & calculators', desc:'Step-by-step guides and handy tools.', onclick:"openContent('Property guides')", cta:'Browse guides' }
+  ].map(t => `<div class="adv-seg"><div class="adv-tag">${t.tag}</div><h3>${t.title}</h3><p>${t.desc}</p><span class="adv-link" onclick="${t.onclick}">${t.cta} \u2192</span></div>`).join('');
+  const faq = helpFaqAcc([
+    { q:'Is NestHere free to use?', a:'Yes \u2014 searching, saving homes and enquiring with agents is free for buyers and renters.' },
+    { q:'How do I save a home?', a:'Sign in, then tap the heart on any listing. Your saved homes appear in your account.' },
+    { q:'How do I contact an agent?', a:'Open any listing and use Send Enquiry or Call Agent. You\u2019ll sign in so your enquiries stay in one place.' },
+    { q:'How do I list my property?', a:'Use \u201cList a property\u201d in the header. You\u2019ll be asked to sign in, then guided through the steps.' },
+    { q:'How do I report a problem?', a:'See our Safety and Security page, or contact our team and we\u2019ll look into it.' }
+  ]);
+  return `<div class="adv-wrap">
+    ${legalNav('Help Centre')}
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Help Centre</div>
+      <h1>How can we help?</h1>
+      <p class="adv-sub">Answers to common questions, plus how to reach us if you need a hand.</p>
+      <div class="adv-btns"><button class="btn btn-copper btn-lg" onclick="openContent('Contact us')">Contact us</button></div>
+    </div>
+    <div class="adv-intro"><h2>Browse by topic</h2></div>
+    <div class="adv-seg-grid">${topics}</div>
+    <div class="adv-intro"><h2>Popular questions</h2></div>
+    <div style="max-width:760px;margin-bottom:44px;">${faq}</div>
+    <div class="adv-data"><div><h3>Still need help?</h3><p>Can\u2019t find what you\u2019re looking for? Our team is happy to help.</p></div><button class="btn btn-primary" onclick="openContent('Contact us')">Contact us</button></div>
+  </div>`;
+}
+
+function renderSafety() {
+  const tips = ['Never send money before viewing a property in person','Be wary of deals that seem too good to be true','Keep conversations and payments through trusted channels','Verify an agent before sharing personal details','Report anything that looks suspicious to our team']
+    .map(t => `<div class="adv-benefit"><span class="adv-tick">\u2713</span><span>${t}</span></div>`).join('');
+  const cards = [
+    { tag:'Agents', title:'Verified agent partners', desc:'We work with professional agents. Check an agent\u2019s profile before sharing details.', action:'content:Find an agent', cta:'Find an agent' },
+    { tag:'Payments', title:'We never handle payments', desc:'NestHere never takes rent or deposit payments. Always pay through your agent or landlord\u2019s official process.', action:'content:Help Centre', cta:'Get help' },
+    { tag:'Privacy', title:'Your data, protected', desc:'See how we collect, use and protect your personal information.', action:'content:Privacy Policy', cta:'Privacy Policy' }
+  ].map(segCard).join('');
+  const faq = helpFaqAcc([
+    { q:'How do I report a suspicious listing?', a:'Use the report option on the listing, or contact our team and we\u2019ll look into it.' },
+    { q:'Does NestHere handle payments?', a:'No \u2014 NestHere never takes rent or deposit payments. Always pay through your agent or landlord\u2019s official process.' },
+    { q:'How can I tell if an agent is genuine?', a:'Check their NestHere profile and reviews, and be cautious if you\u2019re asked to move off-platform or pay upfront.' }
+  ]);
+  return `<div class="adv-wrap">
+    ${legalNav('Safety and Security')}
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Safety and Security</div>
+      <h1>Move safely, with confidence</h1>
+      <p class="adv-sub">A few simple habits keep you safe when searching, enquiring and moving. Here\u2019s how to spot and avoid the most common risks.</p>
+    </div>
+    <div class="adv-intro"><h2>Stay safe online</h2></div>
+    <div class="adv-benefits">${tips}</div>
+    <div class="adv-intro"><h2>How NestHere helps</h2></div>
+    <div class="adv-seg-grid">${cards}</div>
+    <div class="adv-intro"><h2>Common questions</h2></div>
+    <div style="max-width:760px;margin-bottom:44px;">${faq}</div>
+    <div class="adv-data"><div><h3>Spotted something?</h3><p>If anything looks off, tell us and we\u2019ll investigate.</p></div><button class="btn btn-primary" onclick="openContent('Contact us')">Report it</button></div>
+  </div>`;
+}
+
+const LEGAL_DOCS = {
+  'Privacy Policy': { updated:'Last updated June 2026', intro:'How NestHere collects, uses and protects your personal information. This is a prototype notice written in plain English.', sections:[
+    { h:'What we collect', body:['Account details you give us, the searches and favourites you save, and information about how you use NestHere.'] },
+    { h:'How we use it', body:['To show relevant listings, send the alerts you ask for, keep the service secure and improve how it works.'] },
+    { h:'Sharing', body:['We share what\u2019s needed with the agents you enquire with, and with trusted providers who help us run the service. We don\u2019t sell your personal data.'] },
+    { h:'Your choices', body:['You can access, correct or delete your data, and opt out of marketing at any time.'] },
+    { h:'Contact', body:['Questions about privacy? Email privacy@nesthere.co.uk.'] }
+  ]},
+  'Terms of Use': { updated:'Last updated June 2026', intro:'The terms that apply when you use the NestHere website. This is a prototype summary of the kind of terms a property portal would set.', sections:[
+    { h:'Using the site', body:['Use NestHere lawfully, and don\u2019t misuse listings or other users\u2019 data.'] },
+    { h:'Listings', body:['Listing content is provided by agents and owners. We take care over quality but don\u2019t guarantee the accuracy of every listing.'] },
+    { h:'Accounts', body:['Keep your sign-in details secure. You\u2019re responsible for activity on your account.'] },
+    { h:'Liability', body:['The service is provided \u201cas is\u201d for this demonstration, without warranties.'] },
+    { h:'Changes', body:['We may update these terms from time to time, and we\u2019ll show the date they were last changed.'] }
+  ]},
+  'Cookie Policy': { updated:'Last updated June 2026', intro:'How and why NestHere uses cookies and similar technologies. This is a prototype notice.', sections:[
+    { h:'Essential cookies', body:['Needed for the site to work \u2014 for example, keeping you signed in and remembering your preferences.'] },
+    { h:'Analytics cookies', body:['Help us understand how the site is used so we can improve it. These are optional.'] },
+    { h:'Advertising cookies', body:['NestHere products are ad-free, so we don\u2019t use third-party advertising cookies to target you.'] },
+    { h:'Managing cookies', body:['You can control cookies through your browser settings at any time.'] }
+  ]}
+};
+function renderLegalDoc(slug) {
+  const d = LEGAL_DOCS[slug];
+  const toc = d.sections.map((s, i) => `<a onclick="ghJump('lgl-${i}')">${s.h}</a>`).join('');
+  const secs = d.sections.map((s, i) => `<div class="lgl-sec" id="lgl-${i}"><h3>${s.h}</h3>${s.body.map(p => `<p>${p}</p>`).join('')}</div>`).join('');
+  return `<div class="adv-wrap">
+    ${legalNav(slug)}
+    <div class="adv-intro" style="margin-bottom:6px;"><h2 style="font-size:30px;">${slug}</h2><p>${d.intro}</p></div>
+    <p class="lgl-updated">${d.updated}</p>
+    <div class="lgl-layout">
+      <aside class="lgl-toc"><h4>On this page</h4>${toc}</aside>
+      <div>${secs}
+        <div class="adv-data" style="margin-top:6px;"><div><h3>Need a hand?</h3><p>Our Help Centre answers common questions, or you can contact our team.</p></div><button class="btn btn-primary" onclick="openContent('Contact us')">Contact us</button></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ MORTGAGE IN PRINCIPLE ══
+const MIP_STEPS = [ { label:'Check eligibility', time:'2 mins' }, { label:'Your details', time:'5 mins' }, { label:'Soft credit check', time:'1 min' }, { label:'Your result', time:'Instant' } ];
+let mipData = { income:45000, deposit:30000, outgoings:600 };
+function mipGbp(n) { return '\u00a3' + Math.round(n).toLocaleString('en-GB'); }
+function mipStepper(active) {
+  return MIP_STEPS.map((s, i) => {
+    const n = i + 1; const cls = n < active ? 'done' : (n === active ? 'active' : '');
+    return `<div class="mip-step ${cls}"><div class="mip-num">${n < active ? '\u2713' : n}</div><div class="mip-stext"><strong>${s.label}</strong><span>${s.time}</span></div></div>`;
+  }).join('<div class="mip-line"></div>');
+}
+function mipStageIntro() {
+  return `<div class="mip-borrow-lab">You could borrow</div>
+    <div class="mip-borrow-fig">\u00a3???,???</div>
+    <ul class="mip-ticks"><li>Instant, indicative result</li><li>No commitment</li><li>No impact on your credit score</li></ul>
+    <button class="btn btn-copper btn-lg" style="width:100%;justify-content:center;" onclick="mipGo('form')">Start</button>
+    <div class="mip-powered">Powered by NestHere Mortgages (demo partner)</div>`;
+}
+function mipStageForm() {
+  return `<div class="mip-borrow-lab" style="margin-bottom:14px;">Tell us a little about your finances</div>
+    <div class="mip-field"><label>Annual income (before tax)</label><input id="mip-income" type="number" value="${mipData.income}" inputmode="numeric"></div>
+    <div class="mip-field"><label>Deposit saved</label><input id="mip-deposit" type="number" value="${mipData.deposit}" inputmode="numeric"></div>
+    <div class="mip-field"><label>Monthly outgoings (loans, cards, etc.)</label><input id="mip-outgoings" type="number" value="${mipData.outgoings}" inputmode="numeric"></div>
+    <button class="btn btn-copper btn-lg" style="width:100%;justify-content:center;" onclick="mipContinue()">Continue</button>`;
+}
+function mipStageCheck() {
+  return `<div class="mip-check-msg"><div class="mip-spinner"></div>
+    <strong style="font-size:16px;display:block;margin-bottom:6px;">Running a soft credit check\u2026</strong>
+    <p style="font-size:13px;opacity:0.85;line-height:1.5;">Nothing to worry about \u2014 a soft check won\u2019t affect your credit score.</p></div>
+    <button class="btn btn-copper btn-lg" style="width:100%;justify-content:center;margin-top:8px;" onclick="mipGo('result')">See your result</button>`;
+}
+function mipComputeBorrow() {
+  const base = mipData.income * 4.5;
+  const adjust = mipData.outgoings * 24;
+  const borrow = Math.max(base - adjust, mipData.income * 3);
+  return Math.round(borrow / 1000) * 1000;
+}
+function mipStageResult() {
+  const borrow = mipComputeBorrow();
+  const budget = borrow + (mipData.deposit || 0);
+  return `<div class="mip-cert">
+      <div class="mip-borrow-lab">Based on what you told us, you could borrow up to</div>
+      <div class="mip-borrow-fig" style="margin-bottom:6px;">${mipGbp(borrow)}</div>
+      <div class="mip-result-budget">With your ${mipGbp(mipData.deposit)} deposit, that\u2019s homes up to around <strong>${mipGbp(budget)}</strong>.</div>
+    </div>
+    <button class="btn btn-copper btn-lg" style="width:100%;justify-content:center;margin-bottom:10px;" onclick="runAction('catalogue:buy')">Browse homes in your range</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-outline" style="flex:1;justify-content:center;color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Mortgage Calculator')">Mortgage Calculator</button>
+      <button class="btn btn-outline" style="flex:1;justify-content:center;color:#fff;border-color:rgba(255,255,255,0.5);" onclick="mipGo('intro')">Start again</button>
+    </div>`;
+}
+function mipStageHtml(stage) {
+  return stage === 'form' ? mipStageForm() : stage === 'check' ? mipStageCheck() : stage === 'result' ? mipStageResult() : mipStageIntro();
+}
+function mipGo(stage) {
+  const stepFor = { intro:1, form:2, check:3, result:4 };
+  const stageEl = document.getElementById('mip-stage');
+  if (stageEl) stageEl.innerHTML = mipStageHtml(stage);
+  const stepsEl = document.getElementById('mip-steps');
+  if (stepsEl) stepsEl.innerHTML = mipStepper(stepFor[stage] || 1);
+}
+function mipContinue() {
+  const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
+  mipData = { income:v('mip-income'), deposit:v('mip-deposit'), outgoings:v('mip-outgoings') };
+  mipGo('check');
+}
+function renderMortgageInPrinciple() {
+  return `<div class="adv-wrap">
+    <span class="mip-back" onclick="openContent('Mortgages')">\u2039 Back to Mortgages</span>
+    <div class="mip-steps" id="mip-steps">${mipStepper(1)}</div>
+    <div class="mip-grid">
+      <div class="mip-info">
+        <h1>Get a Mortgage in Principle</h1>
+        <p class="mip-sub">See how much you could borrow with a personalised, indicative result \u2014 in minutes, with no impact on your credit score.</p>
+        <div class="mip-need-title">What you\u2019ll need</div>
+        <ul class="mip-list">
+          <li>To be 18 or over and a UK resident</li>
+          <li>Your addresses for the last 3 years</li>
+          <li>Your income and monthly outgoings</li>
+          <li>Employment details</li>
+          <li>Contact details</li>
+        </ul>
+        <div class="mip-notready">
+          <strong style="font-family:var(--serif);font-size:15px;color:var(--ink);">Not ready yet?</strong>
+          <a onclick="openContent('Mortgage Calculator')">Mortgage Calculator<span>Get a quick estimate of what you could afford.</span></a>
+          <a onclick="openContent('Buyer guides')">Buyer guides<span>Everything you need to know about buying a home.</span></a>
+        </div>
+      </div>
+      <div class="mip-stage" id="mip-stage">${mipStageIntro()}</div>
+    </div>
+    <p class="mip-disclaimer">A Mortgage in Principle isn\u2019t a mortgage offer, and you\u2019re under no obligation to take out a mortgage. The figure shown is indicative only and depends on a full application, including a full credit check, meeting lending criteria and a satisfactory property valuation. NestHere Mortgages is a demonstration partner for this prototype and the result above is illustrative. Your home may be repossessed if you do not keep up repayments on a mortgage.</p>
+  </div>`;
+}
+
+// ══ MORTGAGE CALCULATOR (rich) ══
+function renderMortgageCalc() {
+  const field = (key, label, val, min, max, step) => `<div class="mc2-field"><label>${label}</label>
+    <input type="number" id="mca-${key}" value="${val}" min="${min}" step="${step}" oninput="mcSync('${key}','num')">
+    <input type="range" id="mca-${key}-r" min="${min}" max="${max}" step="${step}" value="${val}" oninput="mcSync('${key}','range')"></div>`;
+  return `<div class="adv-wrap">
+    <span class="mip-back" onclick="openContent('Mortgages')">\u2039 Back to Mortgages</span>
+    <div class="adv-intro" style="margin-bottom:18px;"><h2 style="font-size:30px;">Mortgage Calculator</h2><p>Estimate your monthly repayments. Drag the sliders or type to see how the numbers change \u2014 a lender will give you an exact quote.</p></div>
+    <div class="mc2-grid">
+      <div class="mc2-fields">
+        ${field('price','Property price','350000',50000,2000000,5000)}
+        ${field('deposit','Deposit','35000',0,1000000,5000)}
+        ${field('rate','Interest rate (%)','4.5',0.5,10,0.1)}
+        ${field('term','Term (years)','25',5,40,1)}
+      </div>
+      <div class="mc2-panel">
+        <div id="mca-out"></div>
+        <button class="btn btn-copper" style="width:100%;justify-content:center;margin-top:6px;" onclick="openContent('Mortgage in Principle')">Get a Mortgage in Principle</button>
+        <button class="btn btn-outline" style="width:100%;justify-content:center;color:#fff;border-color:rgba(255,255,255,0.5);margin-top:10px;" onclick="runAction('catalogue:buy')">Browse homes for sale</button>
+      </div>
+    </div>
+    <p class="mip-disclaimer">This is an estimate for guidance only and isn\u2019t a mortgage offer or financial advice. Your actual payments depend on the deal you\u2019re offered and your circumstances. Your home may be repossessed if you do not keep up repayments on a mortgage.</p>
+  </div>`;
+}
+function mcRecalc() {
+  const num = id => Number((document.getElementById(id) || {}).value) || 0;
+  const price = num('mca-price'); let deposit = Math.min(num('mca-deposit'), price);
+  const rate = num('mca-rate'), years = num('mca-term');
+  const loan = Math.max(0, price - deposit), mr = rate / 100 / 12, n = years * 12;
+  let monthly = (mr > 0 && n > 0) ? loan * mr * Math.pow(1 + mr, n) / (Math.pow(1 + mr, n) - 1) : (n ? loan / n : 0);
+  const total = monthly * n, interest = Math.max(0, total - loan);
+  const ltv = price ? Math.min(100, loan / price * 100) : 0, depPct = price ? Math.min(100, deposit / price * 100) : 0;
+  const out = document.getElementById('mca-out'); if (!out) return;
+  const gbp = x => '\u00a3' + Math.round(x).toLocaleString('en-GB');
+  out.innerHTML = `<div class="mc2-lab">Estimated monthly payment</div>
+    <div class="mc2-big">${gbp(monthly)}<span>/mo</span></div>
+    <div class="mc2-mini">
+      <div><div class="v">${gbp(loan)}</div><div class="l">Loan amount</div></div>
+      <div><div class="v">${gbp(interest)}</div><div class="l">Total interest</div></div>
+      <div><div class="v">${gbp(total)}</div><div class="l">Total repayable</div></div>
+    </div>
+    <div class="mc2-ltv"><span>Deposit ${depPct.toFixed(0)}%</span><span>${ltv.toFixed(0)}% LTV</span></div>
+    <div class="mc2-bar"><div style="width:${ltv}%;"></div></div>`;
+}
+function mcSync(key, src) {
+  const num = document.getElementById('mca-' + key), rng = document.getElementById('mca-' + key + '-r');
+  if (num && rng) { if (src === 'range') num.value = rng.value; else rng.value = num.value; }
+  mcRecalc();
+}
+
+// ══ MORTGAGES HUB (rich) ══
+function renderMortgagesHub() {
+  const tools = [
+    { tag:'Tool', title:'Mortgage Calculator', desc:'Estimate your monthly repayments in seconds.', action:'content:Mortgage Calculator', cta:'Open calculator' },
+    { tag:'Tool', title:'Mortgage in Principle', desc:'See what you could borrow and make stronger offers.', action:'content:Mortgage in Principle', cta:'Get started' },
+    { tag:'Tool', title:'Stamp Duty Calculator', desc:'Work out the tax due on your next home.', action:'content:Stamp Duty Calculator', cta:'Calculate' },
+    { tag:'Guides', title:'Mortgage guides', desc:'How borrowing works, plus rates, deposits and remortgaging.', action:'content:Mortgage guides', cta:'Read guides' }
+  ].map(segCard).join('');
+  const faq = helpFaqAcc([
+    { q:'What is a Mortgage in Principle?', a:'An indicative figure showing how much a lender could offer you. It\u2019s not a full offer, but it helps you focus your search and shows sellers you\u2019re serious.' },
+    { q:'How much deposit do I need?', a:'Usually at least 5\u201310% of the price, though a bigger deposit typically unlocks better rates.' },
+    { q:'What affects the rate I\u2019m offered?', a:'Your deposit size, credit history, the type of deal (fixed or variable) and the wider market all play a part.' },
+    { q:'Should I choose fixed or variable?', a:'A fixed rate gives certainty over your payments for a set period; a variable rate can move up or down. Our mortgage guides explain the trade-offs.' }
+  ]);
+  return `<div class="adv-wrap">
+    <div class="adv-hero">
+      <div class="adv-eyebrow">Mortgages</div>
+      <h1>Mortgages made simpler</h1>
+      <p class="adv-sub">Everything you need to finance your move \u2014 calculators, a Mortgage in Principle and plain-English guides, all in one place.</p>
+      <div class="adv-btns">
+        <button class="btn btn-copper btn-lg" onclick="openContent('Mortgage Calculator')">Mortgage Calculator</button>
+        <button class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5);" onclick="openContent('Mortgage in Principle')">Get a Mortgage in Principle</button>
+      </div>
+    </div>
+    <div class="adv-intro"><h2>Tools & guides</h2><p>Plan the money side of your move with confidence.</p></div>
+    <div class="adv-seg-grid">${tools}</div>
+    <div class="adv-data"><div><h3>How much could you borrow?</h3><p>Get an instant, indicative figure with a Mortgage in Principle \u2014 with no impact on your credit score.</p></div><button class="btn btn-primary" onclick="openContent('Mortgage in Principle')">Get started</button></div>
+    <div class="adv-intro"><h2>Mortgage questions, answered</h2></div>
+    <div style="max-width:760px;margin-bottom:44px;">${faq}</div>
+  </div>`;
+}
+
+// ══ SITE MAP ══
+const SITEMAP_GROUPS = [
+  { title:'Homes for sale', links:[
+    { label:'All homes for sale', action:'catalogue:buy' },
+    { label:'For sale in London', action:'catalogue:buy:London' },
+    { label:'For sale in Cornwall', action:'catalogue:buy:Cornwall' },
+    { label:'For sale in Glasgow', action:'catalogue:buy:Glasgow' },
+    { label:'For sale in Cardiff', action:'catalogue:buy:Cardiff' },
+    { label:'For sale in Edinburgh', action:'catalogue:buy:Edinburgh' },
+    { label:'New homes', action:'content:New homes' },
+    { label:'Retirement homes', action:'content:Retirement homes' },
+    { label:'Commercial for sale', action:'content:Commercial for sale' }
+  ]},
+  { title:'Homes to rent', links:[
+    { label:'All homes to rent', action:'catalogue:rent' },
+    { label:'To rent in London', action:'catalogue:rent:London' },
+    { label:'To rent in Cornwall', action:'catalogue:rent:Cornwall' },
+    { label:'To rent in Glasgow', action:'catalogue:rent:Glasgow' },
+    { label:'To rent in Cardiff', action:'catalogue:rent:Cardiff' },
+    { label:'To rent in Edinburgh', action:'catalogue:rent:Edinburgh' },
+    { label:'Student accommodation', action:'content:Student accommodation' },
+    { label:'Commercial to rent', action:'content:Commercial to rent' }
+  ]},
+  { title:'House prices & valuation', links:[
+    { label:'Sold house prices', action:'catalogue:sold' },
+    { label:'House Price Index', action:'content:House Price Index' },
+    { label:'Property valuation', action:'content:Property valuation' },
+    { label:'Housing trends', action:'content:Housing trends' }
+  ]},
+  { title:'Overseas property', links:[
+    { label:'Overseas homes', action:'content:Overseas' },
+    { label:'Property in Spain', action:'catalogue:buy:Spain' },
+    { label:'Property in France', action:'catalogue:buy:France' },
+    { label:'Property in Portugal', action:'catalogue:buy:Portugal' },
+    { label:'Property in Italy', action:'content:Property in Italy' },
+    { label:'Property in Greece', action:'content:Property in Greece' },
+    { label:'Sell overseas property', action:'content:Sell overseas property' },
+    { label:'Currency converter', action:'content:Currency converter' }
+  ]},
+  { title:'Sell or let', links:[
+    { label:'List a property', action:'addlisting' },
+    { label:'Find an agent', action:'content:Find an agent' },
+    { label:'Property valuation', action:'content:Property valuation' },
+    { label:'Removals', action:'content:Removals' },
+    { label:'Removal companies', action:'content:Removal companies' },
+    { label:'Track your move', action:'content:Track your move' }
+  ]},
+  { title:'Guides', links:[
+    { label:'Property guides', action:'content:Property guides' },
+    { label:'Buyer guides', action:'content:Buyer guides' },
+    { label:'Seller guides', action:'content:Seller guides' },
+    { label:'Renter guides', action:'content:Renter guides' },
+    { label:'Landlord guides', action:'content:Landlord guides' },
+    { label:'Mortgage guides', action:'content:Mortgage guides' },
+    { label:'Energy efficiency', action:'content:Energy efficiency' },
+    { label:'Glossary', action:'content:Glossary' }
+  ]},
+  { title:'Calculators & tools', links:[
+    { label:'Stamp Duty Calculator', action:'content:Stamp Duty Calculator' },
+    { label:'Mortgage Calculator', action:'content:Mortgage Calculator' },
+    { label:'Mortgage in Principle', action:'content:Mortgage in Principle' },
+    { label:'Currency converter', action:'content:Currency converter' },
+    { label:'Track your move', action:'content:Track your move' }
+  ]},
+  { title:'Inspire', links:[
+    { label:'Inspire', action:'content:Inspire' },
+    { label:'Property news', action:'content:Property news' },
+    { label:'Housing trends', action:'content:Housing trends' },
+    { label:'Moving stories', action:'content:Moving stories' },
+    { label:'Home Views', action:'content:Home Views' }
+  ]},
+  { title:'Company', links:[
+    { label:'About', action:'content:About' },
+    { label:'Press centre', action:'content:Press centre' },
+    { label:'Investor relations', action:'content:Investor relations' },
+    { label:'Contact us', action:'content:Contact us' },
+    { label:'Careers', action:'content:Careers' },
+    { label:'Help Centre', action:'content:Help Centre' }
+  ]},
+  { title:'Professional', links:[
+    { label:'Business Hub', action:'content:Business Hub' },
+    { label:'Data Services', action:'content:Data Services' },
+    { label:'Advertise on NestHere', action:'content:Advertise on NestHere' },
+    { label:'Overseas agents and developers', action:'content:Overseas agents and developers' },
+    { label:'Home and property related services', action:'content:Home and property related services' },
+    { label:'Advertise commercial property', action:'content:Advertise commercial property' },
+    { label:'Agent sign in', action:'agentsignin' }
+  ]},
+  { title:'Your account', links:[
+    { label:'Your saved homes', action:'dashboard' },
+    { label:'List a property', action:'addlisting' },
+    { label:'Sign in', action:'signin' }
+  ]},
+  { title:'Legal & site', links:[
+    { label:'Privacy Policy', action:'content:Privacy Policy' },
+    { label:'Terms of Use', action:'content:Terms of Use' },
+    { label:'Cookie Policy', action:'content:Cookie Policy' },
+    { label:'Safety and Security', action:'content:Safety and Security' },
+    { label:'Help Centre', action:'content:Help Centre' },
+    { label:'Site map', action:'content:Site map' }
+  ]}
+];
+function smOnclick(action) {
+  if (action === 'home') return "showPage('home')";
+  if (action === 'dashboard') return "showPage('dashboard')";
+  if (action === 'agentsignin') return 'agentSignIn()';
+  if (action === 'signin') return 'signIn()';
+  return `runAction('${action}')`;
+}
+function renderSiteMap() {
+  const groups = SITEMAP_GROUPS.map(g => `<div class="sm-group">
+      <h3>${g.title}</h3>
+      ${g.links.map(l => `<a onclick="${smOnclick(l.action)}">${l.label}</a>`).join('')}
+    </div>`).join('');
+  return `<div class="sm-wrap">
+    <span class="sm-home" onclick="showPage('home')">\u2302 Home page</span>
+    <div class="sm-grid">${groups}</div>
+  </div>`;
+}
+
+
+
+
+</script>
+</body>
+</html>

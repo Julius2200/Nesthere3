@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestHere</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="js/main.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <!--<script src="js/utilities.js" defer></script>-->
+    <!--<script src="js/render-functions.js" defer></script>-->
+</head>
+<body>
+    <div id="nav-layout"></div>
+
+    <!-- ══ PAGE: HOME ══ -->
+    <div id="page-home" class="page active">
+      <section class="hero" id="home-top">
+        <div class="hero-bg"></div>
+        <div class="hero-content hero-centered">
+          <h1>Find a place you'll <span>love</span> to live</h1>
+          <p>Search the UK's homes for sale and to rent — all in one calm, clutter-free place.</p>
+          <div class="hsearch">
+            <div class="hsearch-top">
+              <div class="hsearch-tabs">
+                <button class="hs-tab active" value="sale" id="hs-tab-buy" onclick="setHomeTab('buy')">Buy</button>
+                <button class="hs-tab" value="rent" id="hs-tab-rent" onclick="setHomeTab('rent')">Rent</button>
+                <button class="hs-tab" value="sold" id="hs-tab-sold" onclick="setHomeTab('sold')">Sold</button>
+              </div>
+              <div class="hsearch-toggle">
+                <button class="hs-mode active" id="hs-mode-classic" onclick="setHomeMode('classic')">Classic</button>
+                <button class="hs-mode" id="hs-mode-ai" onclick="setHomeMode('ai')">✦ AI Search</button>
+              </div>
+            </div>
+            <div class="hsearch-label" id="hs-label">Search properties to buy</div>
+            <div class="hsearch-row">
+              <div class="hsearch-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+
+                <input id="ai-home-input" type="text" placeholder="City, postcode or area" value="none">
+              </div>
+              <button class="btn btn-copper btn-lg search-btn">Search</button>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <section class="home-feature">
+        <div class="home-cards">
+          <article class="home-card" onclick="openContent('Property valuation')">
+            <div class="hc-img" style="background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80')"></div>
+            <h3>Free home valuation</h3>
+            <p>Find out what your home could be worth, with a no-obligation estimate from a local expert.</p>
+            <span class="hc-link">Get a free valuation →</span>
+          </article>
+          <article class="home-card" onclick="openContent('Housing trends')">
+            <div class="hc-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80')"></div>
+            <h3>What the market's doing</h3>
+            <p>See the latest on prices, demand and where buyers are heading right now.</p>
+            <span class="hc-link">Read the trends →</span>
+          </article>
+          <article class="home-card" onclick="openContent('Buyer guides')">
+            <div class="hc-img" style="background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80')"></div>
+            <h3>First-time buyer guides</h3>
+            <p>Feel confident about the costs and the steps, from saving a deposit to collecting the keys.</p>
+            <span class="hc-link">Take a look →</span>
+          </article>
+        </div>
+      </section>
+  
+      <section class="home-mini">
+        <div class="home-mini-grid">
+          <div class="mini-card" onclick="openContent('Overseas')">
+            <div class="mini-ico">🌍</div>
+            <div><h4>Overseas property</h4><p>Find homes for sale abroad and see what your budget is worth.</p><span class="hc-link">Search now →</span></div>
+          </div>
+          <div class="mini-card" onclick="openContent('Commercial')">
+            <div class="mini-ico">🏢</div>
+            <div><h4>Commercial property</h4><p>Offices, retail and units for sale and to rent across the UK.</p><span class="hc-link">Search now →</span></div>
+          </div>
+          <div class="mini-card" onclick="openContent('Sold house prices')">
+            <div class="mini-ico">📊</div>
+            <div><h4>Sold house prices</h4><p>Check what homes actually sold for in your area.</p><span class="hc-link">Search now →</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- ══ Advert houses ══ -->
+    <div id="homepage-advert" class="homepage-advert">
+      <div class="home-advert-title-wrapper">
+        <h3 class="home-advert-title">Explore your home</h3>
+        <p class="home-array-text">Uncover a wide selection of homes</p>
+      </div>
+      <section class="home-advert-grid">
+      </section>
+      <div class="learn-more-wrapper" id="learn-more-wrapper"><a href="#home-top" class="learn-more-link">Learn More &rarr;</a></div>
+    </div>
+
+    <div class="prop-search-modal-background hidden">
+      <div class="prop-search-modal">
+        <div class="modal-close-wrapper"><p class="close-icon">x</p></div>
+        <form action="" method="get" id="search-modal-form">
+          <div class="form-wrapper">
+
+            <span>
+              <label for="p-cat">Select a category </label>
+              <select name="prop-category" id="p-cat" class="prop-category-input">
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+              </select>
+            </span>
+            <br>
+
+            <label>
+              How many rooms do you require?: 
+              <input type="number" name="rooms" class="no-of-beds-input" placeholder="Number of rooms">
+            </label>
+            <br>
+
+            <div class="price-range-wrapper">
+              <label for="">Enter price range</label>
+              <div class="p-wrapper">
+                <input type="number" id="min-p" class="p-range-input" name="minP" min="1" placeholder="Minimum price">
+                -
+                <input type="number" id="max-p" class="p-range-input" name="maxP" min="2" placeholder="Maximum price">
+              </div>
+            </div>
+          </div>
+          <div class="form-action-wrapper">
+            <button type="reset" class="form-action-btn">Reset</button>
+            <button type="submit" class="form-action-btn search-btn">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="footer-layout"></div>
+
+    <a href="search.html">property search</a>
+    <a href="property.html">property details</a>
+    <br>
+    <a href="users/dashboard.html">Users Dashboard</a>
+    <a href="agents/dashboard.html">agents dashboard</a>
+    <br>
+    <a href="admin/dashboard.html">Admin Dashboard</a>
+    <a href="about.html">about</a>
+    <br>
+    <a href="auth.html">Login</a>
+    <a href="utilities.html">Utilities</a>
+    <br>
+    <a href="listings.html">Listings page 2</a>
+</body>
+</html>

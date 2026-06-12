@@ -1,0 +1,184 @@
+body{
+    max-width: 100dvw;
+    width: 100vw;
+}
+.board-section{
+    box-sizing: border-box;
+    max-width: 100dvw;
+    width: 100vw;
+    padding: 1vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1vw;
+}
+.greeting-box{
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 12dvh;
+    background: var(--forest);
+    color: var(--paper);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1vw;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+}
+.quick-dash-tiles-container{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1vw;
+    display: grid;
+    gap: 1vw;
+}
+.quick-tiles-box{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--green);
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+}
+.quick-tiles-box h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+    margin: 0 0 0.8rem;
+}
+.quick-tiles-box span{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.quick-tiles-box span p:first-child{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    margin-right: 0.5rem;
+    color: var(--grey-600);
+}
+.admin-graph-container{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem 0.5rem;
+    display: grid;
+    gap: 0.5rem;
+    justify-content: center;
+    border: 1px solid var(--green);
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+}
+.graph-box{
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.graph-box:first-child{
+    background-color: #ffc0cb46;
+}
+.graph-box:last-child{
+    background-color: azure;
+}
+.graph-box-title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    margin: 0.5rem auto;
+}
+.graph-wrapper{
+    width: 99%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listing-management-section{
+    box-sizing: border-box;
+    max-width: 100dvw;
+    width: 100vw;
+    margin: 1.5rem 0;
+    padding: 0.8rem;
+    border: 1px solid var(--green);
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+}
+.new-listings-container{
+    border: 1px solid var(--green);
+    border-top: 2px solid var(--green);
+    margin: 0 auto 1rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.new-listings-section-title, .reports-section-title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    display: block;
+    margin: 0 auto;
+}
+.new-listings-wrapper, .reports-section-wrapper{
+    width: 90%;
+    border-top: 1px solid var(--grey-400);
+    border-bottom: 1px solid var(--grey-400);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reports-container{
+    border: 1px solid var(--green);
+    border-top: 2px solid red;
+    margin: 0 auto 1rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/*===Responsive Styling===*/
+@media screen and (max-width: 560px) {
+    .quick-dash-tiles-container{
+        grid-template-columns: 1fr;
+    }
+    .admin-graph-container{
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (min-width: 570px) {
+    .quick-dash-tiles-container{
+        grid-template-columns: 1fr 1fr;
+    }
+    .admin-graph-container{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (min-width: 1300px) {
+    .quick-dash-tiles-container{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .admin-graph-container{
+        grid-template-columns: 1fr 1fr;
+    }
+}

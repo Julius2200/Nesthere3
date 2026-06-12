@@ -1,0 +1,83 @@
+/* ── AUTH ── */
+#page-auth {
+    background: linear-gradient(135deg, #13291F 0%, #1B3A2D 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--shadow-lg);
+}
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--green);
+    margin-bottom: 8px;
+}
+
+.auth-card h2 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-card p {
+    text-align: center;
+    font-size: 14px;
+    color: var(--grey-600);
+    margin-bottom: 28px;
+}
+
+.auth-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--grey-800);
+}
+
+.auth-form input,
+.auth-form select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid var(--grey-200);
+    border-radius: var(--radius);
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 14px;
+    transition: border-color var(--transition);
+    font-family: inherit;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    border-color: var(--green);
+}
+
+.auth-switch {
+    text-align: center;
+    font-size: 14px;
+    color: var(--grey-600);
+    margin-top: 16px;
+}
+
+.auth-switch a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}

@@ -1,0 +1,58 @@
+<aside class="gh-side">
+          <select class="gh-allguides" onchange="if(this.value){runAction(this.value);}">
+            <option value="">All guides</option>
+            <option value="content:Buyer guides">Buyer guides</option>
+            <option value="content:Seller guides">Seller guides</option>
+            <option value="content:Renter guides">Renter guides</option>
+            <option value="content:Landlord guides">Landlord guides</option>
+            <option value="content:Mortgage guides">Mortgage guides</option>
+            <option value="content:Property guides">Property guides</option>
+          </select>
+          <div class="gh-box gh-searchbox">
+            <label>Search guides</label>
+            <input id="gh-search" type="text" placeholder="Type here\u2026" oninput="filterGuides(this.value)" onkeydown="if(event.key==='Enter')filterGuides(this.value)">
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="filterGuides(document.getElementById('gh-search').value)">View results</button>
+            <span class="gh-newslink" onclick="openContent('Property news')">Property news \u2192</span>
+          </div>
+          <div class="gh-box gh-promo">
+            <h4>\ud83d\udca1 New: Property Passport</h4>
+            <p>See a home\u2019s verified history before you book a viewing \u2014 only on NestHere.</p>
+            <span class="gh-plink" onclick="showPage('passport')">Take a look \u2192</span>
+          </div>
+          <details class="gh-acc"><summary>Calculators &amp; tools</summary>
+            <div class="gh-acc-body">
+              <a onclick="runAction('content:Stamp Duty Calculator')">Stamp Duty Calculator</a>
+              <a onclick="runAction('content:Mortgage Calculator')">Mortgage Calculator</a>
+              <a onclick="runAction('content:Currency converter')">Currency converter</a>
+              <a onclick="runAction('content:Mortgage in Principle')">Mortgage in Principle</a>
+            </div></details>
+          <details class="gh-acc"><summary>Helpful resources</summary>
+            <div class="gh-acc-body">
+              <a onclick="runAction('content:Glossary')">Glossary of property terms</a>
+              <a onclick="runAction('content:Help Centre')">Help Centre</a>
+              <a onclick="runAction('content:Track your move')">Track your move</a>
+              <a onclick="runAction('content:Removals')">Removals</a>
+            </div></details>
+          <details class="gh-acc"><summary>Market information</summary>
+            <div class="gh-acc-body">
+              <a onclick="runAction('content:House Price Index')">House Price Index</a>
+              <a onclick="runAction('content:Sold house prices')">Sold house prices</a>
+              <a onclick="runAction('content:Housing trends')">Housing trends</a>
+            </div></details>
+          <div class="gh-promo-h">Do more with NestHere</div>
+          <div class="gh-box gh-promo">
+            <h4>Stay organised</h4>
+            <p>Save homes, set up alerts and keep track of the enquiries you send.</p>
+            <span class="gh-plink" onclick="showPage('dashboard')">Your saved homes \u2192</span>
+          </div>
+          <div class="gh-box gh-promo">
+            <h4>How much is your home worth?</h4>
+            <p>Get a free, no-obligation estimate from a local expert.</p>
+            <span class="gh-plink" onclick="openContent('Property valuation')">Get an instant valuation \u2192</span>
+          </div>
+          <div class="gh-box gh-promo">
+            <h4>Get our weekly newsletter</h4>
+            <p>The latest market updates, straight to your inbox.</p>
+            <span class="gh-plink" onclick="ghNewsletter()">Sign up for our newsletter \u2192</span>
+          </div>
+        </aside>

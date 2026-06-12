@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestHere Utilities</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contents-utils.css">
+
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div id="nav-layout"></div>
+    <div class="calc">
+        <h3>Stamp Duty Calculator</h3>
+      <div class="calc-inputs">
+        <div><label>Property price</label><input type="number" id="sd-price" value="350000" min="0" oninput="calcStampDuty()"></div>
+        <label class="calc-check"><input type="checkbox" id="sd-ftb" onchange="calcStampDuty()"> First-time buyer</label>
+        <p style="font-size:12px;color:var(--grey-600);">Based on standard residential SDLT rates in England &amp; Northern Ireland.</p>
+      </div>
+      <div class="calc-out" id="sd-result"></div>
+    </div>
+    <br>
+    <br>
+
+    <div class="calc">
+      <div class="calc-inputs">
+        <h3>Mortgage Calculator</h3>
+        <div><label>Property price</label><input type="number" id="mc-price" value="350000" min="0" oninput="calcMortgage()"></div>
+        <div><label>Deposit</label><input type="number" id="mc-deposit" value="35000" min="0" oninput="calcMortgage()"></div>
+        <div><label>Interest rate (%)</label><input type="number" id="mc-rate" value="4.5" step="0.1" min="0" oninput="calcMortgage()"></div>
+        <div><label>Term (years)</label><input type="number" id="mc-term" value="25" min="1" oninput="calcMortgage()"></div>
+      </div>
+      <div class="calc-out" id="mc-result"></div>
+    </div>
+    <br>
+    <br>
+
+    <div class="calc">
+        <h3>Currency Converter</h3>
+      <div class="calc-inputs">
+        <div><label>Amount (GBP \u00a3)</label><input type="number" id="cc-amount" value="300000" min="0" oninput="calcCurrency()"></div>
+        <div><label>Convert to</label><select id="cc-to" onchange="calcCurrency()"><option value="EUR">Euro (\u20ac)</option><option value="USD">US Dollar ($)</option><option value="AUD">Australian Dollar (A$)</option></select></div>
+        <p style="font-size:12px;color:var(--grey-600);">Sample rates for guidance only \u2014 not live exchange rates.</p>
+      </div>
+      <div class="calc-out" id="cc-result"></div>
+    </div>
+    <br>
+    <br>
+
+    <div class="rm-page">
+      <div class="rm-hero">
+        <div class="rm-hero-inner">
+          <div>
+            <div class="rm-eyebrow">Removals</div>
+            <h1>Let\u2019s get you moving</h1>
+            <p class="rm-sub">Compare instant quotes from up to 6 local, vetted removal companies.</p>
+            <button class="btn btn-copper btn-lg" onclick="openContent('Removal companies')">Get your removal quotes</button>
+          </div>
+          <svg class="rm-illus" viewBox="0 0 260 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="86" y="14" width="50" height="42" rx="4" fill="var(--copper-soft)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M86 30 h50" stroke="var(--ink)" stroke-width="3"/>
+            <rect x="104" y="20" width="12" height="9" rx="1" fill="var(--ink)"/>
+            <rect x="20" y="70" width="118" height="56" rx="7" fill="var(--forest)"/>
+            <rect x="32" y="82" width="42" height="15" rx="3" fill="rgba(255,255,255,0.18)"/>
+            <path d="M138 88 h34 l26 22 v16 h-60 z" fill="var(--forest-soft)"/>
+            <path d="M150 92 h20 l16 15 h-36 z" fill="var(--paper)"/>
+            <rect x="14" y="126" width="190" height="8" rx="4" fill="var(--forest-mid)"/>
+            <circle cx="62" cy="138" r="17" fill="var(--ink)"/><circle cx="62" cy="138" r="6" fill="var(--paper)"/>
+            <circle cx="166" cy="138" r="17" fill="var(--ink)"/><circle cx="166" cy="138" r="6" fill="var(--paper)"/>
+            <line x1="6" y1="160" x2="254" y2="160" stroke="var(--line)" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rm-band-inner">
+        <div class="rm-partner">
+          <div class="rm-partner-logo"><span class="leaf">\u25B2</span>NestHere Move</div>
+          <h3>We\u2019ve partnered with trusted movers</h3>
+          <p>A simple comparison service that gives you a choice in a matter of seconds. Every partner is competitive, vetted, fully insured and Ombudsman-backed, so you can book with confidence.</p>
+          <div class="rm-badge"><span class="rm-badge-tag">DRO</span> Dispute Resolution Ombudsman \u00b7 partner scheme<div>
+        </div>
+        <div class="rm-card">
+          <h2>Join thousands of home-movers when you\u2026</h2>
+          <ul class="rm-check">
+            <li><span class="tick">\u2713</span> Complete the free quote form in seconds</li>
+            <li><span class="tick">\u2713</span> Compare up to 6 quotes instantly</li>
+            <li><span class="tick">\u2713</span> Choose between local, vetted companies</li>
+            <li><span class="tick">\u2713</span> Save on your removal costs</li>
+          </ul>
+          <button class="btn btn-primary" onclick="openContent('Removal companies')">Get your removal quotes</button>
+        </div>
+      </div>
+
+      <div class="rm-quote">
+        <div class="rm-quote-head">
+          <h2>Removal companies near you</h2>
+          <span class="rm-link" onclick="openContent('Removal companies')">Compare removal companies \u2192</span>
+        </div>
+        <p class="rm-sf">Browse vetted, insured removal firms covering your area, then request a quote from any company and they\u2019ll be in touch.</p>
+      </div>
+    </div>
+    
+
+    <div id="footer-layout"></div>
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    <a href="advertise.html">Advertise</a>
+    <a href="find-agent.html">Find Agent</a>
+    <a href="guides.html">Guides</a>
+</html>

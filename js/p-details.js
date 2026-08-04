@@ -8,7 +8,7 @@ let details;
 
 
 
-let images = ['/images/black.jpg', '/images/graph.jpg' ,'/images/abstract-colour-splash.jpg', '/images/Bugatti-bolide.jpg'];
+let images = ['../images/black.jpg', '../images/graph.jpg' ,'../images/abstract-colour-splash.jpg', '../images/Bugatti-bolide.jpg'];
 
 function fillPassport(passportDetails){
     let passWrapper = document.querySelector('.passWrapper');
@@ -248,7 +248,7 @@ function viewProperty(id){
 }
 
 
-window.addEventListener('DOMContentLoaded', () => {
+/*window.addEventListener('DOMContentLoaded', () => {
   const queryString = window.location.search;
   //parse the parameters
   const urlParams = new URLSearchParams(queryString);
@@ -261,4 +261,4 @@ window.addEventListener('DOMContentLoaded', () => {
   }else{
     console.error('No property id found in the url');
   }
-});
+});*/
